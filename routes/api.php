@@ -27,7 +27,7 @@ Route::post('/auth/token', function (Request $request) {
     ]);
     if (Auth::attempt($request->only('email', 'password'))) {
         $token = $request->user()->createToken(Str::random(5));
-        return response()->json(['message' => 'success', 'token' => $token]);
+        return response()->json(['message' => 'success', 'token' => $token->plainTextToken]);
     } else {
         return response()->json([
             'message' => 'These credentials do not match our records.',
