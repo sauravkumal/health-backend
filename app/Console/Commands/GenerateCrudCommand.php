@@ -32,7 +32,7 @@ class GenerateCrudCommand extends Command
         $modelName = $this->ask('Enter model name');
 
 
-        Artisan::call("make:model {$modelName} -m -s -c -f --api -r");
+        Artisan::call("make:model {$modelName} -m -s -c -f --api -r --policy");
         Artisan::call("make:resource {$modelName}Resource");
         return Command::SUCCESS;
     }

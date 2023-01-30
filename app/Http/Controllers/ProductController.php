@@ -12,6 +12,8 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('fix.pagination')->only('index');
+        $this->authorizeResource(Product::class, 'product');
+
     }
 
     /**

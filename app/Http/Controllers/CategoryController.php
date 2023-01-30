@@ -11,6 +11,7 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('fix.pagination')->only('index');
+        $this->authorizeResource(Category::class, 'category');
     }
 
     /**
