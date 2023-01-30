@@ -22,7 +22,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'vendor_id'
+        'vendor_id',
+        'description',
+        'address',
+        'lat',
+        'lng',
+        'phone_no'
     ];
 
     /**
@@ -42,6 +47,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'phone_no' => 'array'
     ];
 
     public static function vendor(): Builder
