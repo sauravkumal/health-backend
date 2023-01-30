@@ -27,11 +27,18 @@ Route::post('/auth/token', function (Request $request) {
     ]);
     if (Auth::attempt($request->only('email', 'password'))) {
         $token = $request->user()->createToken(Str::random(5));
-        return response()->json(['message' => 'success', 'token' => $token->plainTextToken]);
+        $user = $request->user();
+        $user->token = $token->plainTextToken;
+        return response()->json(['message' => 'success', 'user' => $user]);
     } else {
         return response()->json([
             'message' => 'These credentials do not match our records.',
             'errors' => ['email' => 'These credentials do not match our records.']
         ], 422);
     }
+});
+
+Route::middleware('auth:sanctum')->post('/auth/logout', function (Request $request) {
+    $request->user()->currentAccessToken()->delete();
+    return response()->json(['message' => 'success']);
 });
