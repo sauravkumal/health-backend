@@ -4,6 +4,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\ProductController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -42,3 +46,10 @@ Route::middleware('auth:sanctum')->post('/auth/logout', function (Request $reque
     $request->user()->currentAccessToken()->delete();
     return response()->json(['message' => 'success']);
 });
+
+Route::apiResource('/categories', CategoryController::class);
+Route::apiResource('/subCategories', SubCategoryController::class);
+Route::apiResource('/products', ProductController::class);
+
+
+
