@@ -43,11 +43,4 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(5)->by($request->session()->get('login.id'));
         });
     }
-
-    protected function registerResponseBindings()
-    {
-        ResetPassword::createUrlUsing(function ($notifiable, $token) {
-            return url(env('FRONTEND_URL')) . "/resetpassword/{$token}?email={$notifiable->getEmailForPasswordReset()}";
-        });
-    }
 }
