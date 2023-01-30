@@ -18,6 +18,7 @@ class CategoryResource extends JsonResource
             'id'=>$this->id,
             'title'=>$this->title,
             'position'=>$this->position,
+            'vendor_id' => $this->vendor_id
         ];
     }
 }

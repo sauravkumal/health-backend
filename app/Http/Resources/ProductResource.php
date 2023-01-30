@@ -9,16 +9,17 @@ class ProductResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
     public function toArray($request)
     {
-        return[
+        return [
             'id' => $this->id,
-            'title'=>$this->title,
-            'status'=>$this->status,
+            'title' => $this->title,
+            'status' => $this->status,
             'sub_category_id' => $this->sub_category_id,
+            'vendor_id' => $this->vendor_id
         ];
     }
 }

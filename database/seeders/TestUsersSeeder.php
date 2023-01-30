@@ -16,14 +16,12 @@ class TestUsersSeeder extends Seeder
      */
     public function run()
     {
-        if (!app()->environment('production')) {
-            User::create([
-                'name' => 'User',
-                'email' => 'user@gmail.com',
-                'password' => Hash::make('password'),
-                'email_verified_at' => Carbon::now(),
-                'role' => 'admin'
-            ]);
-        }
+        User::create([
+            'name' => 'User',
+            'email' => 'user@gmail.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => Carbon::now(),
+            'role' => 'admin'
+        ]);
     }
 }
