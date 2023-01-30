@@ -21,23 +21,23 @@ class SubCategoryApiTest extends TestCase
      */
     public function test_if_api_crud_are_working()
     {
-        $user = User::first();
-        $this->assertNotNull($user);
+        $vendor = User::vendor()->first();
+        $this->assertNotNull($vendor);
         $data = SubCategory::factory()->make()->attributesToArray();
-        $response = $this->actingAs($user)
-            ->post(route('subCategories.store'), $data); 
+        $response = $this->actingAs($vendor)
+            ->post(route('subCategories.store'), $data);
 
-          unset($data['sent_date']);    
+        unset($data['sent_date']);
 
         $response->assertJson(['data' => $data]);
-      
+
 
         $this->assertDatabaseHas('sub_categories', $data);
-      
+
         $id = $response->json()['data']['id'];
 
-        $this->actingAs($user)
-            ->put(route('subCategories.update',['subCategory' => $id]), $data)
+        $this->actingAs($vendor)
+            ->put(route('subCategories.update', ['subCategory' => $id]), $data)
             ->assertJson(['data' => [
                 'id' => $id,
                 ...$data
@@ -45,19 +45,19 @@ class SubCategoryApiTest extends TestCase
 
         $this->assertDatabaseHas('sub_categories', $data);
 
-        $this->actingAs($user)
+        $this->actingAs($vendor)
             ->get(route('subCategories.index'))
             ->assertJsonStructure(['data', 'links', 'meta']);
-       
 
-        $this->actingAs($user)
+
+        $this->actingAs($vendor)
             ->get(route('subCategories.show', ['subCategory' => $id]))->assertOk();
 
-        $this->actingAs($user)
+        $this->actingAs($vendor)
             ->get(route('subCategories.show', ['subCategory' => $id]))->assertJson(['data' => $data]);
 
 
-        $this->actingAs($user)
+        $this->actingAs($vendor)
             ->delete(route('subCategories.destroy', ['subCategory' => $id]));
 
         $this->assertDatabaseMissing('sub_categories', $data);

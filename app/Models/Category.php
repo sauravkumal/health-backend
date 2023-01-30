@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'position'];
+    protected $fillable = ['title', 'position', 'vendor_id'];
 
     public function subCategories(): HasMany
     {

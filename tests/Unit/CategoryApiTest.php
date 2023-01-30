@@ -21,27 +21,22 @@ class CategoryApiTest extends TestCase
      */
     public function test_if_api_crud_are_working()
     {
-        $user = User::first();
-        $this->assertNotNull($user);
+        $vendor = User::vendor()->first();
+        $this->assertNotNull($vendor);
 
         $data = Category::factory()->make()->attributesToArray();
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($vendor)
             ->post(route('categories.store'), $data);
-        unset($data['sent_date']);    
-            
-      
+        unset($data['sent_date']);
+
         $response->assertJson(['data' => $data]);
-      
 
         $this->assertDatabaseHas('categories', $data);
-      
-
-
 
         $id = $response->json()['data']['id'];
-       
-        $this->actingAs($user)
-            ->put(route('categories.update',['category' => $id]), $data)
+
+        $this->actingAs($vendor)
+            ->put(route('categories.update', ['category' => $id]), $data)
             ->assertJson(['data' => [
                 'id' => $id,
                 ...$data
@@ -49,18 +44,17 @@ class CategoryApiTest extends TestCase
 
         $this->assertDatabaseHas('categories', $data);
 
-        $this->actingAs($user)
+        $this->actingAs($vendor)
             ->get(route('categories.index'))
             ->assertJsonStructure(['data', 'links', 'meta']);
 
-        $this->actingAs($user)
+        $this->actingAs($vendor)
             ->get(route('categories.show', ['category' => $id]))->assertOk();
 
-        $this->actingAs($user)
+        $this->actingAs($vendor)
             ->get(route('categories.show', ['category' => $id]))->assertJson(['data' => $data]);
 
-
-        $this->actingAs($user)
+        $this->actingAs($vendor)
             ->delete(route('categories.destroy', ['category' => $id]));
 
         $this->assertDatabaseMissing('categories', $data);

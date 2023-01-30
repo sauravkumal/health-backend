@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,9 +19,10 @@ class SubCategoryFactory extends Factory
     public function definition()
     {
         return [
-            'title'=>$this->faker->name(),
-            'category_id'=>Category::all()->random()->id,
-            'position'=>$this->faker->numberBetween(0,15)
+            'title' => $this->faker->name(),
+            'category_id' => Category::all()->random()->id,
+            'position' => $this->faker->numberBetween(0, 15),
+            'vendor_id' => User::vendor()->get()->random()->id
         ];
     }
 }

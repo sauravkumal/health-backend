@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class TestUsersSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -22,6 +22,14 @@ class TestUsersSeeder extends Seeder
             'password' => Hash::make('password'),
             'email_verified_at' => Carbon::now(),
             'role' => 'admin'
+        ]);
+
+        User::create([
+            'name' => 'Vendor',
+            'email' => 'vendor@gmail.com',
+            'password' => Hash::make('password'),
+            'email_verified_at' => Carbon::now(),
+            'role' => 'vendor'
         ]);
     }
 }
