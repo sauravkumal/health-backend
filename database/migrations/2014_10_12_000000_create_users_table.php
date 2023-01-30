@@ -22,6 +22,7 @@ return new class extends Migration {
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
             $table->json('phone_no')->nullable();
+            $table->json('opening_hours')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->string('role');

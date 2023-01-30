@@ -27,7 +27,8 @@ class User extends Authenticatable
         'address',
         'lat',
         'lng',
-        'phone_no'
+        'phone_no',
+        'opening_hours'
     ];
 
     /**
@@ -47,7 +48,8 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'phone_no' => 'array'
+        'phone_no' => 'array',
+        'opening_hours' => 'array'
     ];
 
     public static function vendor(): Builder
