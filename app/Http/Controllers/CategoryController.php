@@ -22,11 +22,7 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = Category::query();
-
-        $query->with(['subCategories' => function ($q) {
-            $q->orderBy('position');
-        }]);
-        $query->orderBy('position');
+        $query->orderBy($request->sortBy ?: 'created_at', $request->sortDesc == 'true' ? 'desc' : 'asc');
         return CategoryResource::collection($query->paginate($request->itemsPerPage));
     }
 
