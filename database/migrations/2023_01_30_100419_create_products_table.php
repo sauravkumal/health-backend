@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('status');
             $table->foreignId('sub_category_id')->constrained('sub_categories')->cascadeOnDelete();
             $table->foreignId('vendor_id')->constrained('users', 'id')->cascadeOnDelete();
+            $table->integer('position');
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::middleware('auth:sanctum')->post('/auth/logout', function (Request $reque
     $request->user()->currentAccessToken()->delete();
     return response()->json(['message' => 'success']);
 });
+
+Route::get('/vendor/menu', [MenuController::class, 'vendorMenu']);
 
 Route::apiResource('/categories', CategoryController::class);
 Route::apiResource('/subCategories', SubCategoryController::class);

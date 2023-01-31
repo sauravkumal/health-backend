@@ -22,7 +22,8 @@ class ProductFactory extends Factory
             'title' => $this->faker->name(),
             'sub_category_id' => SubCategory::all()->random()->id,
             'status' => $this->faker->randomElement(['draft', 'published']),
-            'vendor_id' => User::vendor()->get()->random()->id
+            'vendor_id' => User::vendor()->get()->random()->id,
+            'position' => $this->faker->randomDigitNotNull
         ];
     }
 }
