@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->rememberToken();
             $table->string('role');
             $table->foreignId('vendor_id')->nullable()->constrained('users', 'id')->cascadeOnDelete();
+            $table->boolean('publish_menu')->default(false);
             $table->timestamps();
         });
     }

@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->post('/auth/logout', function (Request $reque
 });
 
 Route::get('/vendor/menu', [MenuController::class, 'vendorMenu']);
+Route::post('/vendor/menu/publish', [MenuController::class, 'publishMenu']);
 
 Route::apiResource('/categories', CategoryController::class);
 Route::apiResource('/subCategories', SubCategoryController::class);

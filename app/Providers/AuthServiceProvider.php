@@ -36,5 +36,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-vendor-menu', function (User $user) {
             return $user->role == 'vendor';
         });
+
+        Gate::define('publish-menu', function (User $user) {
+            return $user->role == 'vendor';
+        });
     }
 }

@@ -16,7 +16,7 @@ class MenuController extends Controller
 
     public function vendorMenu(Request $request)
     {
-        Gate::authorize('access-vendor-menu');
+        $this->authorize('access-vendor-menu');
 
         $menu = Category::query()->with(['subCategories' => function ($q) {
             $q->with(['products' => function ($qu) {
@@ -27,5 +27,11 @@ class MenuController extends Controller
             ->where('vendor_id', auth()->id())
             ->orderBy('position')->get();
         return CategoryResource::collection($menu);
+    }
+
+    public function publishMenu(Request $request)
+    {
+        auth()->user()->update(['publish_menu' => $request->publish]);
+        return response()->json(['message' => 'success']);
     }
 }
