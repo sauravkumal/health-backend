@@ -10,7 +10,7 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'status', 'sub_category_id', 'vendor_id', 'position'];
+    protected $fillable = ['title', 'sub_category_id', 'vendor_id', 'position'];
 
     public function subCategory(): BelongsTo
     {
