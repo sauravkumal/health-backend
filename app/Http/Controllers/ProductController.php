@@ -71,7 +71,14 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $product->update($request->all());
-        $product->refresh();
+        if ($request->file('image')) {
+            $product->clearMediaCollection('image');
+            $fileName = $request->file('image')->getFilename() . '.' . $request->file('image')->getExtension();
+            $ext = $request->file('image')->getExtension();
+            $product->addMediaFromRequest('image')
+                ->usingName(Hash::make($fileName) . '.' . $ext)
+                ->toMediaCollection('image');
+        }
         return new ProductResource($product);
     }
 
