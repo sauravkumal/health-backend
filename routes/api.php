@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\ProductController;
 
 
@@ -52,7 +51,6 @@ Route::get('/vendor/menu', [MenuController::class, 'vendorMenu']);
 Route::post('/vendor/menu/publish', [MenuController::class, 'publishMenu']);
 
 Route::apiResource('/categories', CategoryController::class);
-Route::apiResource('/subCategories', SubCategoryController::class);
 Route::apiResource('/products', ProductController::class);
 
 

@@ -2,7 +2,7 @@
 
 namespace Database\Factories;
 
-use App\Models\SubCategory;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +20,7 @@ class ProductFactory extends Factory
     {
         return [
             'title' => $this->faker->name(),
-            'sub_category_id' => SubCategory::all()->random()->id,
+            'category_id' => Category::all()->random()->id,
             'vendor_id' => User::vendor()->get()->random()->id,
             'position' => $this->faker->randomDigitNotNull
         ];

@@ -19,7 +19,7 @@ class CategoryResource extends JsonResource
             'title' => $this->title,
             'position' => $this->position,
             'vendor_id' => $this->vendor_id,
-            'subCategories' => SubCategoryResource::collection($this->whenLoaded('subCategories'))
+            'products' => ProductResource::collection($this->whenLoaded('products'))
         ];
     }
 }
