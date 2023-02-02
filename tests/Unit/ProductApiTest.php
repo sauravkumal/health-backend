@@ -31,7 +31,7 @@ class ProductApiTest extends TestCase
 
         $response->assertJson(['data' => $data]);
 
-        unset($data['image_url']);
+        unset($data['thumb_image_url']);
         $this->assertDatabaseHas('products', $data);
 
 
