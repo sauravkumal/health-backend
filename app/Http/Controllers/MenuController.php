@@ -18,11 +18,8 @@ class MenuController extends Controller
     {
         $this->authorize('access-vendor-menu');
 
-        $menu = Category::query()->with(['subCategories' => function ($q) {
-            $q->with(['products' => function ($qu) {
-                $qu->orderBy('position');
-            }])
-                ->orderBy('position');
+        $menu = Category::query()->with(['products' => function ($qu) {
+            $qu->orderBy('position');
         }])
             ->where('vendor_id', auth()->id())
             ->orderBy('position')->get();
