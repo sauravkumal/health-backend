@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProductController extends Controller
 {
@@ -38,6 +39,13 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = Product::create($request->all());
+        if ($request->file('image')) {
+            $fileName = $request->file('image')->getFilename() . '.' . $request->file('image')->getExtension();
+            $ext = $request->file('image')->getExtension();
+            $product->addMediaFromRequest('image')
+                ->usingName(Hash::make($fileName) . '.' . $ext)
+                ->toMediaCollection('image');
+        }
         return new ProductResource($product);
 
     }

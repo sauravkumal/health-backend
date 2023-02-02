@@ -31,11 +31,13 @@ class ProductApiTest extends TestCase
 
         $response->assertJson(['data' => $data]);
 
-
+        unset($data['image_url']);
         $this->assertDatabaseHas('products', $data);
 
 
         $id = $response->json()['data']['id'];
+
+        $data['title'] = 'Modified';
 
         $this->actingAs($vendor)
             ->put(route('products.update', ['product' => $id]), $data)

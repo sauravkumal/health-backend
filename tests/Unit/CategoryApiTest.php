@@ -35,6 +35,8 @@ class CategoryApiTest extends TestCase
 
         $id = $response->json()['data']['id'];
 
+        $data['title'] = 'Modified';
+
         $this->actingAs($vendor)
             ->put(route('categories.update', ['category' => $id]), $data)
             ->assertJson(['data' => [
