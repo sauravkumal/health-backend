@@ -51,7 +51,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'phone_no' => 'array',
         'opening_hours' => 'array',
-        'publish_menu' => 'boolean'
+        'publish_menu' => 'boolean',
+        'active' => 'boolean',
+        'online' => 'boolean'
     ];
 
     public static function vendor(): Builder
