@@ -17,6 +17,8 @@ return new class extends Migration {
             $table->string('title');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->foreignId('vendor_id')->constrained('users')->cascadeOnDelete();
+            $table->json('pricing_types')->nullable();
+            $table->json('pricing_details')->nullable();
             $table->integer('position');
             $table->timestamps();
         });

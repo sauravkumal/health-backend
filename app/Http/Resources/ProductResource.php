@@ -20,7 +20,9 @@ class ProductResource extends JsonResource
             'category_id' => $this->category_id,
             'vendor_id' => $this->vendor_id,
             'position' => $this->position,
-            'thumb_image_url' => $this->thumb_image_url
+            'thumb_image_url' => $this->thumb_image_url,
+            'pricing_details' => $this->pricing_details,
+            'pricing_types' => $this->pricing_types
         ];
     }
 }

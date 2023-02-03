@@ -14,8 +14,12 @@ class Product extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
 
-    protected $fillable = ['title', 'category_id', 'vendor_id', 'position'];
+    protected $fillable = ['title', 'category_id', 'vendor_id', 'position', 'pricing_types', 'pricing_details'];
 
+    protected $casts = [
+        'pricing_types' => 'array',
+        'pricing_details' => 'array',
+    ];
     protected $appends = ['thumb_image_url'];
 
     protected function thumbImageUrl(): Attribute
