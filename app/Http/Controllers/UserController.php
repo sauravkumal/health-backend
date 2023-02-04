@@ -24,6 +24,10 @@ class UserController extends Controller
     {
         $query = User::query();
 
+        if ($request->search) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
         if ($request->has('filters')) {
             $query = getQueryWithFilters(json_decode($request->filters, true), $query);
         }
