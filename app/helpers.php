@@ -1,4 +1,7 @@
 <?php
+
+use Illuminate\Database\Eloquent\Builder;
+
 function getQueryWithFilters($filters, Builder $query): Builder
 {
     foreach ($filters as $filter => $value) {

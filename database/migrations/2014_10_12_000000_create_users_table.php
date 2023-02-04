@@ -29,7 +29,6 @@ return new class extends Migration {
             $table->boolean('active')->default(true);
             $table->boolean('online')->default(false);
             $table->foreignId('vendor_id')->nullable()->constrained('users', 'id')->cascadeOnDelete();
-            $table->boolean('publish_menu')->default(false);
             $table->timestamps();
         });
     }

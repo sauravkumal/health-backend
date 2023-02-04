@@ -30,7 +30,7 @@ class User extends Authenticatable
         'lng',
         'phone_no',
         'opening_hours',
-        'publish_menu'
+        'role',
     ];
 
     /**

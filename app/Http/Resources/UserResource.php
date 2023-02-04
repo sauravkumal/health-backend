@@ -18,16 +18,15 @@ class UserResource extends JsonResource
     public function toArray($request)
     {
         return [
-            ...$this->only('id', 'name', 'role'),
+            ...$this->only('id', 'name', 'role', 'email'),
             $this->mergeWhen($this->role == 'vendor', [
                 ...$this->only('description',
                     'address',
                     'lat',
                     'lng',
                     'phone_no',
-                    'opening_hours',
-                    'publish_menu'),
-                'menu_id' => $this->menu()->select('id', 'vendor_id')->first()->id
+                    'opening_hours'),
+                'menu_id' => $this->menu()->select('id', 'vendor_id')->first()?->id,
             ])
         ];
     }

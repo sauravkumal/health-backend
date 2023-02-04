@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\UserController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +52,7 @@ Route::middleware('auth:sanctum')->post('/auth/logout', function (Request $reque
 Route::apiResource('/categories', CategoryController::class);
 Route::apiResource('/products', ProductController::class);
 Route::apiResource('/menus', MenuController::class);
+Route::apiResource('/users', UserController::class);
 
 
 
