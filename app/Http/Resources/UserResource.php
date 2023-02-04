@@ -27,7 +27,8 @@ class UserResource extends JsonResource
                     'phone_no',
                     'opening_hours'),
                 'menu_id' => $this->menu()->select('id', 'vendor_id')->first()?->id,
-            ])
+            ]),
+            $this->mergeWhen($this->role == 'waiter', $this->only('phone_no', 'active'))
         ];
     }
 }

@@ -32,7 +32,7 @@ class UserController extends Controller
             $query->with($request->with);
         }
 
-        if ($request->role == 'vendor') {
+        if (auth()->user()->role == 'vendor') {
             $query->where('vendor_id', auth()->id());
         }
         $query->orderBy($request->sortBy ?: 'created_at', $request->sortDesc == 'true' ? 'desc' : 'asc');
@@ -48,6 +48,9 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->merge(['password' => Hash::make($request->input('password'))]);
+        if (auth()->user()->role == 'vendor') {
+            $request->merge(['vendor_id' => auth()->id()]);
+        }
         $user = User::create($request->all());
         if ($request->filled('with')) {
             $user->load($request->with);
@@ -80,6 +83,9 @@ class UserController extends Controller
     {
         if ($request->password) {
             $request->merge(['password' => Hash::make($request->input('password'))]);
+        }
+        if (auth()->user()->role == 'vendor') {
+            $request->merge(['vendor_id' => auth()->id()]);
         }
         $user->update($request->all());
         if ($request->filled('with')) {
