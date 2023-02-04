@@ -97,8 +97,12 @@ class UserController extends Controller
         if ($request->password && auth()->id() != $user->id) {
             $request->merge(['password' => Hash::make($request->input('password'))]);
         }
-        if (auth()->user()->role == 'vendor' && auth()->id() != $user->id) {
-            $request->merge(['vendor_id' => auth()->id()]);
+        if (auth()->user()->role == 'vendor') {
+            if (auth()->id() == $user->id) {
+                $request->merge(['vendor_id' => null]);
+            } else {
+                $request->merge(['vendor_id' => auth()->id()]);
+            }
         }
         $user->update($request->all());
 
