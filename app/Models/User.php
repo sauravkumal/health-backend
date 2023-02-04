@@ -31,6 +31,8 @@ class User extends Authenticatable
         'phone_no',
         'opening_hours',
         'role',
+        'active',
+        'online'
     ];
 
     /**

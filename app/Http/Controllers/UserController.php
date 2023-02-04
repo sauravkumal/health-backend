@@ -85,7 +85,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if ($request->password) {
+        if ($request->password && auth()->id() != $user->id) {
             $request->merge(['password' => Hash::make($request->input('password'))]);
         }
         if (auth()->user()->role == 'vendor') {
