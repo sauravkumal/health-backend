@@ -56,6 +56,15 @@ class UserController extends Controller
             $request->merge(['vendor_id' => auth()->id()]);
         }
         $user = User::create($request->all());
+
+        if ($request->file('image')) {
+            $fileName = $request->file('image')->getFilename() . '.' . $request->file('image')->getExtension();
+            $ext = $request->file('image')->getExtension();
+            $user->addMediaFromRequest('image')
+                ->usingFileName(md5($fileName) . '.' . $ext)
+                ->toMediaCollection('image');
+        }
+
         if ($request->filled('with')) {
             $user->load($request->with);
         }
@@ -92,6 +101,16 @@ class UserController extends Controller
             $request->merge(['vendor_id' => auth()->id()]);
         }
         $user->update($request->all());
+
+        if ($request->file('image')) {
+            $user->clearMediaCollection('image');
+            $fileName = $request->file('image')->getFilename() . '.' . $request->file('image')->getExtension();
+            $ext = $request->file('image')->getExtension();
+            $user->addMediaFromRequest('image')
+                ->usingFileName(md5($fileName) . '.' . $ext)
+                ->toMediaCollection('image');
+        }
+
         if ($request->filled('with')) {
             $user->load($request->with);
         }

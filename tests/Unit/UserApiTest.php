@@ -27,7 +27,7 @@ class UserApiTest extends TestCase
         $response = $this->actingAs($user)
             ->post(route('users.store'), $data);
 
-        unset($data['password'], $data['email_verified_at']);
+        unset($data['password'], $data['email_verified_at'], $data['thumb_image_url']);
 
         $response->assertJson($data);
 

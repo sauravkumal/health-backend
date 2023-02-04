@@ -24,6 +24,19 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $query = Product::query();
+
+        if ($request->search) {
+            $query->where('title', 'like', '%' . $request->search . '%');
+        }
+
+        if ($request->has('filters')) {
+            $query = getQueryWithFilters(json_decode($request->filters, true), $query);
+        }
+
+        if ($request->filled('with')) {
+            $query->with($request->with);
+        }
+
         $query->orderBy($request->sortBy ?: 'created_at', $request->sortDesc == 'true' ? 'desc' : 'asc');
         return ProductResource::collection($query->paginate($request->itemsPerPage));
 
@@ -45,6 +58,11 @@ class ProductController extends Controller
                 ->usingFileName(md5($fileName) . '.' . $ext)
                 ->toMediaCollection('image');
         }
+
+        if ($request->filled('with')) {
+            $product->load($request->with);
+        }
+
         return new ProductResource($product);
 
     }
@@ -55,8 +73,11 @@ class ProductController extends Controller
      * @param \App\Models\Product $product
      * @return ProductResource
      */
-    public function show(Product $product)
+    public function show(Request $request, Product $product)
     {
+        if ($request->filled('with')) {
+            $product->load($request->with);
+        }
         return new ProductResource($product);
     }
 
@@ -77,6 +98,10 @@ class ProductController extends Controller
             $product->addMediaFromRequest('image')
                 ->usingFileName(md5($fileName) . '.' . $ext)
                 ->toMediaCollection('image');
+        }
+
+        if ($request->filled('with')) {
+            $product->load($request->with);
         }
         return new ProductResource($product);
     }

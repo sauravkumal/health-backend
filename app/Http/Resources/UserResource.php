@@ -25,10 +25,10 @@ class UserResource extends JsonResource
                     'lat',
                     'lng',
                     'phone_no',
-                    'opening_hours'),
+                    'opening_hours', 'thumb_image_url'),
                 'menu_id' => $this->menu()->select('id', 'vendor_id')->first()?->id,
             ]),
-            $this->mergeWhen($this->role == 'waiter', $this->only('phone_no', 'active', 'created_at'))
+            $this->mergeWhen($this->role == 'waiter', $this->only('phone_no', 'active', 'created_at', 'thumb_image_url'))
         ];
     }
 }
