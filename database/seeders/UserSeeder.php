@@ -29,7 +29,16 @@ class UserSeeder extends Seeder
             'email' => 'vendor@gmail.com',
             'password' => Hash::make('password'),
             'email_verified_at' => Carbon::now(),
-            'role' => 'vendor'
+            'role' => 'vendor',
+            'opening_hours' => [
+                ['title' => 'Sunday', 'open' => '08:00', 'close' => '17:00', 'enabled' => true],
+                ['title' => 'Monday', 'open' => '08:00', 'close' => '17:00', 'enabled' => true],
+                ['title' => 'Tuesday', 'open' => '08:00', 'close' => '17:00', 'enabled' => true],
+                ['title' => 'Wednesday', 'open' => '08:00', 'close' => '17:00', 'enabled' => true],
+                ['title' => 'Thursday', 'open' => '08:00', 'close' => '17:00', 'enabled' => true],
+                ['title' => 'Friday', 'open' => '08:00', 'close' => '17:00', 'enabled' => false],
+                ['title' => 'Saturday', 'open' => '08:00', 'close' => '17:00', 'enabled' => false],
+            ]
         ]);
     }
 }
