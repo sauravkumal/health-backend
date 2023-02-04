@@ -27,7 +27,6 @@ class CategoryApiTest extends TestCase
         $data = Category::factory()->make()->attributesToArray();
         $response = $this->actingAs($vendor)
             ->post(route('categories.store'), $data);
-        unset($data['sent_date']);
 
         $response->assertJson(['data' => $data]);
 

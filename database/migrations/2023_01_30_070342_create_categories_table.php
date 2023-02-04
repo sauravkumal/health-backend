@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->integer('position');
-            $table->foreignId('vendor_id')->constrained('users', 'id')->cascadeOnDelete();
+            $table->foreignId('vendor_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('menu_id')->constrained('menus')->cascadeOnDelete();
             $table->timestamps();
         });
     }

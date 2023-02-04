@@ -13,7 +13,7 @@ class GenerateCrudCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'generate-crud';
+    protected $signature = 'make:crud {model}';
 
     /**
      * The console command description.
@@ -29,9 +29,7 @@ class GenerateCrudCommand extends Command
      */
     public function handle()
     {
-        $modelName = $this->ask('Enter model name');
-
-
+        $modelName = $this->argument('model');
         Artisan::call("make:model {$modelName} -m -s -c -f --api -r --policy");
         Artisan::call("make:resource {$modelName}Resource");
         return Command::SUCCESS;

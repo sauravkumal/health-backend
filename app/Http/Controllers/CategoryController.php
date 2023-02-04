@@ -22,6 +22,14 @@ class CategoryController extends Controller
     public function index(Request $request)
     {
         $query = Category::query();
+
+        if ($request->has('filters')) {
+            $query = getQueryWithFilters(json_decode($request->filters, true), $query);
+        }
+
+        if ($request->filled('with')) {
+            $query->with($request->with);
+        }
         $query->orderBy($request->sortBy ?: 'created_at', $request->sortDesc == 'true' ? 'desc' : 'asc');
         return CategoryResource::collection($query->paginate($request->itemsPerPage));
     }
@@ -35,6 +43,9 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $category = Category::create($request->all());
+        if ($request->filled('with')) {
+            $category->load($request->with);
+        }
         return new CategoryResource($category);
     }
 
@@ -44,8 +55,11 @@ class CategoryController extends Controller
      * @param \App\Models\Category $category
      * @return CategoryResource
      */
-    public function show(Category $category)
+    public function show(Request $request, Category $category)
     {
+        if ($request->filled('with')) {
+            $category->load($request->with);
+        }
         return new CategoryResource($category);
     }
 
@@ -59,6 +73,9 @@ class CategoryController extends Controller
     public function update(Request $request, Category $category)
     {
         $category->update($request->all());
+        if ($request->filled('with')) {
+            $category->load($request->with);
+        }
         return new CategoryResource($category);
     }
 

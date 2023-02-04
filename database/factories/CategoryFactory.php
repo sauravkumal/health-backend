@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Menu;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +21,8 @@ class CategoryFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'position' => $this->faker->numberBetween(0, 15),
-            'vendor_id' => User::vendor()->get()->random()->id
+            'vendor_id' => User::vendor()->get()->random()->id,
+            'menu_id' => Menu::query()->get()->random()->id
         ];
     }
 }
