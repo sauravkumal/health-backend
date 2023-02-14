@@ -51,8 +51,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['password' => Hash::make($request->input('password'))]);
-        if (auth()->user()->role == 'vendor') {
+        if ($request->password) {
+            $request->merge(['password' => Hash::make($request->input('password'))]);
+        } else {
+            $request->request->remove('password');
+        }
+        if (auth()->user()->role == 'vendor' || auth()->user()->role == 'customer') {
             $request->merge(['vendor_id' => auth()->id()]);
         }
         $user = User::create($request->all());
@@ -94,15 +98,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if ($request->password && auth()->id() != $user->id) {
+        if ($request->password) {
             $request->merge(['password' => Hash::make($request->input('password'))]);
+        } else {
+            $request->request->remove('password');
         }
-        if (auth()->user()->role == 'vendor') {
-            if (auth()->id() == $user->id) {
-                $request->merge(['vendor_id' => null]);
-            } else {
-                $request->merge(['vendor_id' => auth()->id()]);
-            }
+        if (auth()->user()->role == 'vendor' || auth()->user()->role == 'customer') {
+            $request->merge(['vendor_id' => auth()->id()]);
         }
         $user->update($request->all());
 
