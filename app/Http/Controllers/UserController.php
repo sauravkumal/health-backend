@@ -56,8 +56,10 @@ class UserController extends Controller
         } else {
             $request->request->remove('password');
         }
-        if (auth()->user()->role == 'vendor' || auth()->user()->role == 'customer') {
+        if (auth()->user()->role == 'vendor') {
             $request->merge(['vendor_id' => auth()->id()]);
+        } else {
+            $request->merge(['vendor_id' => null]);
         }
         $user = User::create($request->all());
 
@@ -103,8 +105,10 @@ class UserController extends Controller
         } else {
             $request->request->remove('password');
         }
-        if (auth()->user()->role == 'vendor' || auth()->user()->role == 'customer') {
+        if (auth()->user()->role == 'vendor') {
             $request->merge(['vendor_id' => auth()->id()]);
+        } else {
+            $request->merge(['vendor_id' => null]);
         }
         $user->update($request->all());
 
