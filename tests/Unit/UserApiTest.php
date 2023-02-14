@@ -24,6 +24,7 @@ class UserApiTest extends TestCase
         $this->assertNotNull($user);
 
         $data = User::factory()->make()->attributesToArray();
+        $data['password'] = 'password';
         $response = $this->actingAs($user)
             ->post(route('users.store'), $data);
 
