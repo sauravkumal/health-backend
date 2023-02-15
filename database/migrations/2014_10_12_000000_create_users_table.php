@@ -17,18 +17,9 @@ return new class extends Migration {
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->text('description')->nullable();
-            $table->text('address')->nullable();
-            $table->string('lat')->nullable();
-            $table->string('lng')->nullable();
-            $table->text('phone_no')->nullable();
-            $table->json('opening_hours')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->string('role');
-            $table->boolean('active')->default(true);
-            $table->boolean('online')->default(false);
-            $table->foreignId('vendor_id')->nullable()->constrained('users', 'id')->cascadeOnDelete();
             $table->timestamps();
         });
     }

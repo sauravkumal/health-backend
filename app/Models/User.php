@@ -27,16 +27,7 @@ class User extends Authenticatable implements HasMedia
         'name',
         'email',
         'password',
-        'vendor_id',
-        'description',
-        'address',
-        'lat',
-        'lng',
-        'phone_no',
-        'opening_hours',
         'role',
-        'active',
-        'online'
     ];
 
     /**
@@ -91,10 +82,5 @@ class User extends Authenticatable implements HasMedia
     public static function admin(): Builder
     {
         return self::query()->where('role', 'admin');
-    }
-
-    public function menu(): HasOne
-    {
-        return $this->hasOne(Menu::class, 'vendor_id');
     }
 }

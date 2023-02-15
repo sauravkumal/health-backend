@@ -19,16 +19,6 @@ class UserResource extends JsonResource
     {
         return [
             ...$this->only('id', 'name', 'role', 'email'),
-            $this->mergeWhen($this->role == 'vendor', [
-                ...$this->only('description',
-                    'address',
-                    'lat',
-                    'lng',
-                    'phone_no',
-                    'opening_hours', 'thumb_image_url'),
-                'menu_id' => $this->menu()->select('id', 'vendor_id')->first()?->id,
-            ]),
-            $this->mergeWhen($this->role == 'waiter', $this->only('phone_no', 'active', 'created_at', 'thumb_image_url'))
         ];
     }
 }
