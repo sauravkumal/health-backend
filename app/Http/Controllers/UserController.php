@@ -36,9 +36,6 @@ class UserController extends Controller
             $query->with($request->with);
         }
 
-        if (auth()->user()->role == 'vendor') {
-            $query->where('vendor_id', auth()->id());
-        }
         $query->orderBy($request->sortBy ?: 'created_at', $request->sortDesc == 'true' ? 'desc' : 'asc');
         return UserResource::collection($query->paginate($request->itemsPerPage));
     }
@@ -56,20 +53,7 @@ class UserController extends Controller
         } else {
             $request->request->remove('password');
         }
-        if (auth()->user()->role == 'vendor') {
-            $request->merge(['vendor_id' => auth()->id()]);
-        } else {
-            $request->merge(['vendor_id' => null]);
-        }
         $user = User::create($request->all());
-
-        if ($request->file('image')) {
-            $fileName = $request->file('image')->getFilename() . '.' . $request->file('image')->getExtension();
-            $ext = $request->file('image')->getExtension();
-            $user->addMediaFromRequest('image')
-                ->usingFileName(md5($fileName) . '.' . $ext)
-                ->toMediaCollection('image');
-        }
 
         if ($request->filled('with')) {
             $user->load($request->with);
@@ -105,21 +89,8 @@ class UserController extends Controller
         } else {
             $request->request->remove('password');
         }
-        if (auth()->user()->role == 'vendor') {
-            $request->merge(['vendor_id' => auth()->id()]);
-        } else {
-            $request->merge(['vendor_id' => null]);
-        }
-        $user->update($request->all());
 
-        if ($request->file('image')) {
-            $user->clearMediaCollection('image');
-            $fileName = $request->file('image')->getFilename() . '.' . $request->file('image')->getExtension();
-            $ext = $request->file('image')->getExtension();
-            $user->addMediaFromRequest('image')
-                ->usingFileName(md5($fileName) . '.' . $ext)
-                ->toMediaCollection('image');
-        }
+        $user->update($request->all());
 
         if ($request->filled('with')) {
             $user->load($request->with);

@@ -53,32 +53,6 @@ class User extends Authenticatable implements HasMedia
         'online' => 'boolean'
     ];
 
-    protected $appends = ['thumb_image_url'];
-
-    protected function thumbImageUrl(): Attribute
-    {
-        $imageUrl = function ($value) {
-            $image = $this->getFirstMedia('image');
-            return $image?->getFullUrl('thumb');
-        };
-        return Attribute::make(
-            get: $imageUrl,
-        );
-    }
-
-    public function registerMediaConversions(Media $media = null): void
-    {
-        $this->addMediaConversion('thumb')
-            ->width(300)
-            ->height(300)->nonQueued();
-    }
-
-
-    public static function vendor(): Builder
-    {
-        return self::query()->where('role', 'vendor');
-    }
-
     public static function admin(): Builder
     {
         return self::query()->where('role', 'admin');
