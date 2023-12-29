@@ -21,7 +21,6 @@ class UserSeeder extends Seeder
             'email' => 'user@gmail.com',
             'password' => Hash::make('password'),
             'email_verified_at' => Carbon::now(),
-            'role' => 'admin'
         ]);
     }
 }
