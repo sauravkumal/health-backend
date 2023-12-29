@@ -12,7 +12,6 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('fix.pagination')->only('index');
-        $this->authorizeResource(User::class, 'user');
     }
 
     /**

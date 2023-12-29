@@ -24,7 +24,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
     ];
 
     /**
@@ -44,14 +43,5 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'opening_hours' => 'array',
-        'publish_menu' => 'boolean',
-        'active' => 'boolean',
-        'online' => 'boolean'
     ];
-
-    public static function admin(): Builder
-    {
-        return self::query()->where('role', 'admin');
-    }
 }
