@@ -38,10 +38,13 @@ class StartCommand extends UserCommand
      */
     public function execute(): ServerResponse
     {
-        //$message = $this->getMessage();
-        //$chat_id = $message->getChat()->getId();
-        //$user_id = $message->getFrom()->getId();
+        $message = $this->getMessage();
+        $chat_id = $message->getChat()->getId();
+        $user_id = $message->getFrom()->getId();
 
-        return Request::emptyResponse();
+        return Request::sendMessage([
+            'chat_id' => $chat_id,
+            'text' => 'Hi How are you?'
+        ]);
     }
 }
