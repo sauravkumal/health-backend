@@ -19,7 +19,7 @@ class StartCommand extends UserCommand
     /**
      * @var string
      */
-    protected $description = 'Start/Restart bot';
+    protected $description = 'Start bot';
 
     /**
      * @var string

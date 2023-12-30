@@ -6,6 +6,7 @@ use App\Facades\Telegram;
 use Illuminate\Console\Command;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\BotCommand;
+use Longman\TelegramBot\Entities\BotCommandScope\BotCommandScopeDefault;
 use Longman\TelegramBot\Request;
 
 class ConfigureTelegramCommands extends Command
@@ -70,6 +71,7 @@ class ConfigureTelegramCommands extends Command
             })->values();
 
         $response = Request::setMyCommands([
+            'scope' => new BotCommandScopeDefault(),
             'commands' => $userCommands->all()
         ]);
         if ($response->isOk()) {
