@@ -75,8 +75,6 @@ class ConfigureTelegramWebhook extends Command
         } else {
             $this->error($response->getProperty('description'));
         }
-
-
     }
 
     private function removeWebhook(): void

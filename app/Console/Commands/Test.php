@@ -28,6 +28,7 @@ class Test extends Command
      */
     public function handle()
     {
+        \Longman\TelegramBot\Commands\Command::
         TelegramUser::factory(10)->create();
         return Command::SUCCESS;
     }

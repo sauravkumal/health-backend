@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use Longman\TelegramBot\Telegram;
 
 class ConfigureTelegramCommands extends Command
 {
@@ -40,5 +41,13 @@ class ConfigureTelegramCommands extends Command
         };
 
         return Command::SUCCESS;
+    }
+
+    private function listCommands()
+    {
+        /* @var Telegram $telegram */
+        $telegram = app()->get(Telegram::class);
+        $commands = $telegram->getCommandsList();
+        dd($commands);
     }
 }

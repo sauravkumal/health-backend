@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use Longman\TelegramBot\Request;
@@ -26,10 +25,19 @@ class TelegramServiceProvider extends ServiceProvider
      * Bootstrap services.
      *
      * @return void
-     * @throws BindingResolutionException
      */
     public function boot()
     {
-        Request::initialize($this->app->make(Telegram::class));
+        /* @var Telegram $telegram */
+        $telegram = app()->get(Telegram::class);
+        Request::initialize($telegram);
+        $this->registerCommands($telegram);
+    }
+
+    private function registerCommands(Telegram $telegram): void
+    {
+        $telegram->addCommandsPath(app_path('Bot/Commands/User'));
+        $telegram->addCommandsPath(app_path('Bot/Commands/Admin'));
+        $telegram->addCommandsPath(app_path('Bot/Commands/System'));
     }
 }
