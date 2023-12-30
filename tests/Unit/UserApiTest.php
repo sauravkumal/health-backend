@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\Models\User;
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -51,9 +50,6 @@ class UserApiTest extends TestCase
         $this->actingAs($user)
             ->get(route('users.index'))
             ->assertJsonStructure(['data', 'links', 'meta']);
-
-        $this->actingAs($user)
-            ->get(route('users.show', ['user' => $id]))->assertOk();
 
         $this->actingAs($user)
             ->get(route('users.show', ['user' => $id]))->assertJson($data);
