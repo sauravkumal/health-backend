@@ -12,7 +12,7 @@ class ConfigureTelegramCommands extends Command
      *
      * @var string
      */
-    protected $signature = 'command:configure-telegram-commands';
+    protected $signature = 'command:config-telegram-commands';
 
     /**
      * The console command description.

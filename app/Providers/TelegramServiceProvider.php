@@ -30,7 +30,15 @@ class TelegramServiceProvider extends ServiceProvider
     {
         /* @var Telegram $telegram */
         $telegram = app()->get(Telegram::class);
+
+        $telegram->enableMySql(config('telegram.db'));
+
+        if (config('telegram.admins')) {
+            $telegram->enableAdmins(config('telegram.admins'));
+        }
+
         Request::initialize($telegram);
+
         $this->registerCommands($telegram);
     }
 
