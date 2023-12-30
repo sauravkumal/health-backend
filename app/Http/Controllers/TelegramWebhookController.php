@@ -12,7 +12,6 @@ class TelegramWebhookController extends Controller
     public function handle(Request $request): JsonResponse
     {
         try {
-            Log::debug('telegram updates', $request->all());
             Telegram::handle();
         } catch (\Exception $exception) {
             Log::error($exception->getMessage(), $exception->getTrace());
