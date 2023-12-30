@@ -27,10 +27,10 @@ class TelegramUserController extends Controller
         if ($request->search) {
             $query->where(function ($q) use ($request) {
                 $q->where('display_name', 'like', "%$request->search%")
-                    ->where('first_name', 'like', "%$request->search%")
-                    ->where('last_name', 'like', "%$request->search%")
-                    ->where('username', 'like', "%$request->search%")
-                    ->where('telegram_id', 'like', "%$request->search%");
+                    ->orWhere('first_name', 'like', "%$request->search%")
+                    ->orWhere('last_name', 'like', "%$request->search%")
+                    ->orWhere('username', 'like', "%$request->search%")
+                    ->orWhere('telegram_id', 'like', "%$request->search%");
 
             });
         }
@@ -93,6 +93,6 @@ class TelegramUserController extends Controller
     public function destroy(TelegramUser $telegramUser)
     {
         $telegramUser->delete();
-        return  response()->json(['message'=>'success']);
+        return response()->json(['message' => 'success']);
     }
 }

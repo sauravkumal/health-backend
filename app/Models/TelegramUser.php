@@ -25,7 +25,7 @@ class TelegramUser extends Model
     {
         return Attribute::make(
             get: fn(mixed $value, array $attributes) => !empty($attributes['dob']) ?
-                Carbon::parse($attributes['dob'])->diffForHumans() : null,
+                Carbon::parse($attributes['dob'])->diffInYears() . ' years' : null,
         );
     }
 }
