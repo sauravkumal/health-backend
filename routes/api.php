@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TelegramUserController;
 use App\Http\Controllers\TelegramWebhookController;
 use App\Http\Controllers\UserController;
 use App\Http\Resources\UserResource;
@@ -26,6 +27,7 @@ Route::get('/webhook', [TelegramWebhookController::class, 'handle'])->name('tele
 Route::post('/webhook', [TelegramWebhookController::class, 'handle'])->name('telegram.webhook');
 
 Route::apiResource('/users', UserController::class);
+Route::apiResource('/telegramUsers', TelegramUserController::class)->only('index', 'show', 'destroy');
 
 
 
