@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Models\TelegramUser;
 use Illuminate\Console\Command;
 
-class TestCommand extends Command
+class Test extends Command
 {
     /**
      * The name and signature of the console command.
