@@ -17,6 +17,7 @@
         "laravel/octane": "^1.4",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
+        "longman/telegram-bot": "^0.82.0",
         "spiral/roadrunner": "^2.8.2"
     },
     "require-dev": {

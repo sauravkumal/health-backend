@@ -1,11 +1,10 @@
 <?php
 
+use App\Http\Controllers\TelegramWebhookController;
 use App\Http\Controllers\UserController;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Str;
 
 
 /*
@@ -22,6 +21,8 @@ use Illuminate\Support\Str;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return new UserResource($request->user());
 });
+
+Route::get('/webhook', [TelegramWebhookController::class, 'handle'])->name('telegram.webhook');
 
 Route::apiResource('/users', UserController::class);
 
