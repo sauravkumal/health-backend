@@ -19,7 +19,7 @@ class StartCommand extends UserCommand
     /**
      * @var string
      */
-    protected $description = 'Start command';
+    protected $description = 'Start/Restart bot';
 
     /**
      * @var string
@@ -40,7 +40,6 @@ class StartCommand extends UserCommand
     {
         $message = $this->getMessage();
         $chat_id = $message->getChat()->getId();
-        $user_id = $message->getFrom()->getId();
 
         return Request::sendMessage([
             'chat_id' => $chat_id,

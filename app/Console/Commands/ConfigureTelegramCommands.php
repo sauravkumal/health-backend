@@ -2,8 +2,11 @@
 
 namespace App\Console\Commands;
 
+use App\Facades\Telegram;
 use Illuminate\Console\Command;
-use Longman\TelegramBot\Telegram;
+use Longman\TelegramBot\Commands\UserCommand;
+use Longman\TelegramBot\Entities\BotCommand;
+use Longman\TelegramBot\Request;
 
 class ConfigureTelegramCommands extends Command
 {
@@ -43,11 +46,46 @@ class ConfigureTelegramCommands extends Command
         return Command::SUCCESS;
     }
 
-    private function listCommands()
+    private function listCommands(): void
     {
-        /* @var Telegram $telegram */
-        $telegram = app()->get(Telegram::class);
-        $commands = $telegram->getCommandsList();
-        dd($commands);
+        $commands = Request::getMyCommands([])->getResult();
+        $this->info('List of available commands:');
+        foreach ($commands as $command) {
+            /* @var BotCommand $command */
+            $this->info('/' . $command->getCommand() . ' - ' . $command->getDescription());
+        }
+    }
+
+    private function registerCommands(): void
+    {
+        $localCommands = Telegram::getCommandsList();
+        $userCommands = collect($localCommands)
+            ->filter(fn($item) => $item instanceof UserCommand)
+            ->map(function ($item) {
+                /* @var UserCommand $item */
+                return [
+                    'command' => $item->getName(),
+                    'description' => $item->getDescription()
+                ];
+            })->values();
+
+        $response = Request::setMyCommands([
+            'commands' => $userCommands->all()
+        ]);
+        if ($response->isOk()) {
+            $this->info('Commands registered');
+        } else {
+            $this->error('Failed to register commands');
+        }
+    }
+
+    private function removeCommands(): void
+    {
+        $response = Request::deleteMyCommands([]);
+        if ($response->isOk()) {
+            $this->info('Commands deleted');
+        } else {
+            $this->error('Failed to delete commands');
+        }
     }
 }
