@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\TelegramUserResource;
-use App\Models\TelegramUser;
+use App\Http\Resources\RecordResource;
+use App\Models\Record;
 use Illuminate\Http\Request;
 
-class TelegramUserController extends Controller
+class RecordController extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:sanctum');
@@ -22,18 +21,7 @@ class TelegramUserController extends Controller
      */
     public function index(Request $request)
     {
-        $query = TelegramUser::query();
-
-        if ($request->search) {
-            $query->where(function ($q) use ($request) {
-                $q->where('display_name', 'like', "%$request->search%")
-                    ->orWhere('first_name', 'like', "%$request->search%")
-                    ->orWhere('last_name', 'like', "%$request->search%")
-                    ->orWhere('username', 'like', "%$request->search%")
-                    ->orWhere('telegram_id', 'like', "%$request->search%");
-
-            });
-        }
+        $query = Record::query();
 
         if ($request->has('filters')) {
             $query = getQueryWithFilters(json_decode($request->filters, true), $query);
@@ -44,7 +32,7 @@ class TelegramUserController extends Controller
         }
 
         $query->orderBy($request->sortBy ?: 'created_at', $request->sortDesc == 'true' ? 'desc' : 'asc');
-        return TelegramUserResource::collection($query->paginate($request->itemsPerPage));
+        return RecordResource::collection($query->paginate($request->itemsPerPage));
     }
 
     /**
@@ -61,25 +49,25 @@ class TelegramUserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\TelegramUser $telegramUser
-     * @return TelegramUserResource
+     * @param \App\Models\Record $record
+     * @return RecordResource
      */
-    public function show(Request $request, TelegramUser $telegramUser)
+    public function show(Request $request, Record $record)
     {
         if ($request->filled('with')) {
-            $telegramUser->load($request->with);
+            $record->load($request->with);
         }
-        return new TelegramUserResource($telegramUser);
+        return new RecordResource($record);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\TelegramUser $telegramUser
+     * @param \App\Models\Record $record
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, TelegramUser $telegramUser)
+    public function update(Request $request, Record $record)
     {
         //
     }
@@ -87,13 +75,12 @@ class TelegramUserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\TelegramUser $telegramUser
+     * @param \App\Models\Record $record
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(TelegramUser $telegramUser)
+    public function destroy(Record $record)
     {
-        $telegramUser->records()->delete();
-        $telegramUser->delete();
+        $record->delete();
         return response()->json(['message' => 'success']);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RecordController;
 use App\Http\Controllers\TelegramUserController;
 use App\Http\Controllers\TelegramWebhookController;
 use App\Http\Controllers\UserController;
@@ -28,6 +29,7 @@ Route::post('/webhook', [TelegramWebhookController::class, 'handle'])->name('tel
 
 Route::apiResource('/users', UserController::class);
 Route::apiResource('/telegramUsers', TelegramUserController::class)->only('index', 'show', 'destroy');
+Route::apiResource('/records', RecordController::class)->only('index', 'show', 'destroy');
 
 
 
