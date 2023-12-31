@@ -27,6 +27,10 @@ class ExistingUserHandler extends BaseHandler implements HandlerInterface
             'text' => '😴Add Sleep Hours',
             'callback_data' => $this->scoped('3', SleepHoursHandler::class)]));
 
+        $keyboard->addRow(new InlineKeyboardButton([
+            'text' => '🧘‍♀️Weekly Report',
+            'callback_data' => $this->scoped('4', WeeklyReportHandler::class)]));
+
         return $this->reply([
             'text' => '👉👉Choose any of the available options to record your data👈👈',
             'reply_markup' => $keyboard]);
