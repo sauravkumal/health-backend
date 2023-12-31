@@ -17,7 +17,10 @@ class RecordFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'sleep_hours' => fake()->numberBetween(4, 8),
+            'exercise_duration' => fake()->numberBetween(3, 6),
+            'water_intake' => fake()->numberBetween(1, 3),
+            'date' => fake()->date,
         ];
     }
 }
