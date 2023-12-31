@@ -17,7 +17,7 @@ class ExerciseDurationHandler extends BaseHandler implements HandlerInterface
     {
         $text = $this->messageText();
 
-        $this->initConversation();
+        $this->initConversation('exerciseduration');
 
         switch ($this->conversationState) {
             case 0:

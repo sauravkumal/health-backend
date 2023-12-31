@@ -17,7 +17,7 @@ class SleepHoursHandler extends BaseHandler implements HandlerInterface
     {
         $text = $this->messageText();
 
-        $this->initConversation();
+        $this->initConversation('sleephours');
 
         switch ($this->conversationState) {
             case 0:

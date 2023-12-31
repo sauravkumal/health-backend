@@ -17,7 +17,7 @@ class WaterIntakeHandler extends BaseHandler implements HandlerInterface
     {
         $text = $this->messageText();
 
-        $this->initConversation();
+        $this->initConversation('waterintake');
 
         switch ($this->conversationState) {
             case 0:

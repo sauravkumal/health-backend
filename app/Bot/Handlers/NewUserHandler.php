@@ -21,7 +21,7 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
     {
         $text = $this->messageText();
 
-        $this->initConversation();
+        $this->initConversation('start');
 
         switch ($this->conversationState) {
             case 0:
@@ -92,8 +92,23 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                         'dob' => Carbon::parse($this->getNote('dob')),
                         'gender' => $this->getNote('gender'),
                     ]);
+                $this->replyText($message);
 
-                return $this->replyText($message);
+                $keyboard = new InlineKeyboard([]);
+                $keyboard->addRow(new InlineKeyboardButton([
+                    'text' => 'Water Intake',
+                    'callback_data' => $this->scoped('waterintake', WaterIntakeHandler::class)]));
+                $keyboard->addRow(new InlineKeyboardButton([
+                    'text' => 'Exercise Duration',
+                    'callback_data' => $this->scoped('exerciseduration', ExerciseDurationHandler::class)]));
+
+                $keyboard->addRow(new InlineKeyboardButton([
+                    'text' => 'Sleep Hours',
+                    'callback_data' => $this->scoped('sleephours', SleepHoursHandler::class)]));
+
+                return $this->reply([
+                    'text' => 'Choose any of the available options to record your data',
+                    'reply_markup' => $keyboard]);
 
             default:
                 throw new \Exception('Unexpected conversation state');

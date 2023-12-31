@@ -15,17 +15,16 @@ class GenericmessageCommand extends \Longman\TelegramBot\Commands\SystemCommands
 
     public function execute(): ServerResponse
     {
+        $conversation = new Conversation(
+            $this->getMessage()->getFrom()->getId(),
+            $this->getMessage()->getChat()->getId()
+        );
+
+        if ($conversation->exists() && ($command = $conversation->getCommand())) {
+            return $this->telegram->executeCommand($command);
+        }
+
         if ($this->getExistingUser()) {
-
-            $conversation = new Conversation(
-                $this->getMessage()->getFrom()->getId(),
-                $this->getMessage()->getChat()->getId()
-            );
-
-            if ($conversation->exists() && ($command = $conversation->getCommand())) {
-                return $this->telegram->executeCommand($command);
-            }
-
             return $this->handler(ExistingUserHandler::class);
         }
         return $this->handler(NewUserHandler::class);

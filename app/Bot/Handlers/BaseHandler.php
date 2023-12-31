@@ -78,25 +78,12 @@ class BaseHandler
         return trim($this->command->getMessage()->getText(true));
     }
 
-    private function getConversationIdentifier(): string
-    {
-
-        if ($this->command instanceof CallbackqueryCommand) {
-            $callbackData = $this->command->getCallbackQuery()->getData();
-            $split = explode('_', $callbackData);
-            if (count($split) > 2) {
-                return $split[1];
-            }
-        }
-        return $this->command->getName();
-    }
-
     /**
      * @throws TelegramException
      */
-    protected function initConversation(): void
+    protected function initConversation($identifier): void
     {
-        $this->conversation = new Conversation($this->from()->getId(), $this->chatId(), $this->getConversationIdentifier());
+        $this->conversation = new Conversation($this->from()->getId(), $this->chatId(), $identifier);
 
         $this->conversationNotes = &$this->conversation->notes;
         !is_array($this->conversationNotes) && $this->conversationNotes = [];
@@ -135,12 +122,7 @@ class BaseHandler
 
     protected function scoped($value, $handler = null): string
     {
-        $string = Str::of($handler ?? get_class($this))
-            ->remove(["App\\Bot\\Handlers\\", 'Handler']);
-
-        if ($handler) {
-            return $string->append('_', $value)->value();
-        }
-        return $string->append('_', $this->command->getName(), '_', $value)->value();
+        return Str::of($handler ?? get_class($this))
+            ->remove(["App\\Bot\\Handlers\\", 'Handler'])->append('_', $value)->value();
     }
 }
