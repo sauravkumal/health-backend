@@ -2,6 +2,7 @@
 
 namespace App\Bot\Handlers;
 
+use App\Bot\Commands\System\CallbackqueryCommand;
 use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Entities\Chat;
@@ -39,12 +40,15 @@ class BaseHandler
      */
     protected function reply($data): ServerResponse
     {
-        $data['chat_id'] = $this->command->getMessage()->getChat()->getId();
+        $data['chat_id'] = $this->chatId();
         return Request::sendMessage($data);
     }
 
     protected function chat(): Chat
     {
+        if ($this->command instanceof CallbackqueryCommand) {
+            return $this->command->getCallbackQuery()->getMessage()->getChat();
+        }
         return $this->command->getMessage()->getChat();
     }
 
@@ -55,11 +59,18 @@ class BaseHandler
 
     protected function from(): User
     {
+        if ($this instanceof CallbackqueryCommand) {
+            return $this->command->getCallbackQuery()->getFrom();
+        }
         return $this->command->getMessage()->getFrom();
     }
 
     protected function messageText(): string
     {
+        if ($this instanceof CallbackqueryCommand) {
+            //todo return inline query data
+            return trim($this->command->getMessage()->getText(true));
+        }
         return trim($this->command->getMessage()->getText(true));
     }
 

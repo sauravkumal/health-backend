@@ -5,6 +5,8 @@ namespace App\Bot\Handlers;
 use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Longman\TelegramBot\Entities\InlineKeyboard;
+use Longman\TelegramBot\Entities\InlineKeyboardButton;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
 
@@ -46,7 +48,13 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
             case 3:
                 if (!$text) {
                     $this->setState(3);
-                    return $this->replyText('Choose your gender:');
+                    return $this->reply([
+                        'text' => 'Choose your gender',
+                        'reply_markup' => new InlineKeyboard([
+                            new InlineKeyboardButton(['text' => 'Male', 'callback_data' => 'male']),
+                            new InlineKeyboardButton(['text' => 'Female', 'callback_data' => 'female']),
+                            new InlineKeyboardButton(['text' => 'Others', 'callback_data' => 'others'])
+                        ])]);
                 }
 
                 if (!Str::contains($text, ['male', 'female', 'others'], true)) {
