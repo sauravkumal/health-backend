@@ -4,8 +4,8 @@ namespace App\Bot\Commands\User;
 
 use App\Bot\Handlers\CallsHandlerTrait;
 use App\Bot\Handlers\ChecksExistingUserTrait;
+use App\Bot\Handlers\ExerciseDurationHandler;
 use App\Bot\Handlers\NewUserHandler;
-use App\Bot\Handlers\WaterIntakeHandler;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
@@ -13,24 +13,24 @@ use Longman\TelegramBot\Exception\TelegramException;
 /**
  * Start command
  */
-class WaterintakeCommand extends UserCommand
+class WeeklyreportCommand extends UserCommand
 {
     use CallsHandlerTrait, ChecksExistingUserTrait;
 
     /**
      * @var string
      */
-    protected $name = 'waterintake';
+    protected $name = 'weeklyreport';
 
     /**
      * @var string
      */
-    protected $description = 'Add daily water intake';
+    protected $description = 'Show weekly health report';
 
     /**
      * @var string
      */
-    protected $usage = '/waterintake';
+    protected $usage = '/weeklyreport';
 
     /**
      * @var string
@@ -50,7 +50,7 @@ class WaterintakeCommand extends UserCommand
     public function execute(): ServerResponse
     {
         if ($this->getExistingUser()) {
-            return $this->handler(WaterIntakeHandler::class);
+            return $this->handler(ExerciseDurationHandler::class);
         }
         return $this->handler(NewUserHandler::class);
     }

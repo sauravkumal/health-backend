@@ -41,12 +41,6 @@ class ExercisedurationCommand extends UserCommand
 
     protected $private_only = true;
 
-    protected $conversation;
-
-    protected $notes;
-
-    protected $state;
-
     /**
      * Command execute method
      *
