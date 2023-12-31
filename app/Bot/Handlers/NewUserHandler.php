@@ -27,7 +27,7 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                 if (!$text) {
                     $this->setState(0);
                     $this->replyText("🌟Welcome to our Health Tracker Bot! Log your daily water ,sleep hours 😴, and exercise duration. Get weekly updates to keep you on track! Please tell us a bit about yourself.🚀");
-                    return $this->replyText("Please enter your name:");
+                    return $this->replyText("Enter your name");
                 }
                 $this->setNote('name', $text);
                 $text = '';
@@ -35,12 +35,12 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    return $this->replyText('Enter your date of birth (yyyy-mm-dd):');
+                    return $this->replyText('Enter your date of birth (yyyy-mm-dd)');
                 }
                 try {
                     Carbon::parse($text);
                 } catch (InvalidFormatException $exception) {
-                    return $this->replyText('The date you entered is invalid. Please try again:');
+                    return $this->replyText('The date you entered is invalid. Please try again');
                 }
 
                 $this->setNote('dob', $text);
@@ -59,7 +59,7 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                 }
 
                 if (!Str::contains($text, ['male', 'female', 'others'], true)) {
-                    return $this->replyText('Your input is invalid. Please select either one among male, female and others:');
+                    return $this->replyText('Your input is invalid. Please select either one among male, female and others');
                 }
 
                 $this->setNote('gender', $text);

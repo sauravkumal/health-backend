@@ -136,6 +136,6 @@ class BaseHandler
     {
         return Str::of($class ?? get_class($this))
             ->remove(["App\\Bot\\Handlers\\", 'Handler'])
-            ->append('_', $value)->value();
+            ->append('_', $this->command->getName(), '_', $value)->value();
     }
 }
