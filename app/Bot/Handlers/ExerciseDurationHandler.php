@@ -26,11 +26,11 @@ class ExerciseDurationHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    return $this->replyText("🌟Enter today's exercise duration in hours🚀");
+                    return $this->replyText("🏃‍♂️Enter today's exercise duration in hours");
                 }
 
                 if (!is_numeric($text)) {
-                    return $this->replyText("Your input is invalid. Please try again");
+                    return $this->replyText("😢Your input is invalid. Please try again");
                 }
 
                 $this->setNote('duration', $text);
@@ -50,7 +50,7 @@ class ExerciseDurationHandler extends BaseHandler implements HandlerInterface
                         'exercise_duration' => $text
                     ]);
 
-                $message = "Your input has been recorded successfully!";
+                $message = "Your input has been recorded successfully😀";
 
                 $this->stopConversation();
 

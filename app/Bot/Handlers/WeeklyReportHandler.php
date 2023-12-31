@@ -25,10 +25,10 @@ class WeeklyReportHandler extends BaseHandler implements HandlerInterface
         $avgExerciseDuration = round($records->average('exercise_duration'), 2);
         $avgSleepHours = round($records->average('sleep_hours'), 2);
 
-        $message = "<b>Here is your weekly health report</b>\n\n" .
-            "Average water intake: <strong>$avgWaterIntake litres</strong>\n" .
-            "Average sleep hour: <strong>$avgSleepHours hours</strong>\n" .
-            "Average exercise duration: <strong>$avgExerciseDuration hours</strong>\n";
+        $message = "<b>Here is your weekly health report💪💪💪</b>\n\n" .
+            "💧Average water intake: <strong>$avgWaterIntake litres</strong>\n" .
+            "😴Average sleep hour: <strong>$avgSleepHours hours</strong>\n" .
+            "🏃‍♂️Average exercise duration: <strong>$avgExerciseDuration hours</strong>\n";
 
         return $this->replyText($message);
     }

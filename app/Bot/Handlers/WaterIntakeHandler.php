@@ -26,11 +26,11 @@ class WaterIntakeHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    return $this->replyText("🌟Enter today's water intake in litres🚀");
+                    return $this->replyText("💧Enter today's water intake in litres");
                 }
 
                 if (!is_numeric($text)) {
-                    return $this->replyText("Your input is invalid. Please try again");
+                    return $this->replyText("😢Your input is invalid. Please try again");
                 }
 
                 $this->setNote('amount', $text);
@@ -51,7 +51,7 @@ class WaterIntakeHandler extends BaseHandler implements HandlerInterface
                         'water_intake' => $text
                     ]);
 
-                $message = "Your input has been recorded successfully!";
+                $message = "Your input has been recorded successfully😀";
 
                 $this->stopConversation();
 

@@ -30,8 +30,8 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    $this->replyText("🌟Welcome to our Health Tracker Bot! Log your daily water ,sleep hours 😴, and exercise duration. Get weekly updates to keep you on track! Please tell us a bit about yourself.🚀");
-                    return $this->replyText("Enter your name");
+                    $this->replyText("🌟Welcome to our Health Tracker Bot! Log your daily water 🥛,sleep hours 😴, and exercise duration 🏃‍♂️. Get weekly updates to keep you on track! Please tell us a bit about yourself.🚀");
+                    return $this->replyText("👤Enter your name");
                 }
                 $this->setNote('name', $text);
                 $text = '';
@@ -39,12 +39,12 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
             case 2:
                 if (!$text) {
                     $this->setState(2);
-                    return $this->replyText('Enter your date of birth (yyyy-mm-dd)');
+                    return $this->replyText('🗓Enter your date of birth (yyyy-mm-dd)');
                 }
                 try {
                     Carbon::parse($text);
                 } catch (InvalidFormatException $exception) {
-                    return $this->replyText('The date you entered is invalid. Please try again');
+                    return $this->replyText('😢The date you entered is invalid. Please try again');
                 }
 
                 $this->setNote('dob', $text);
@@ -54,16 +54,16 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                 if (!$text) {
                     $this->setState(3);
                     return $this->reply([
-                        'text' => 'Choose your gender',
+                        'text' => '👫Choose your gender',
                         'reply_markup' => new InlineKeyboard([
-                            new InlineKeyboardButton(['text' => 'Male', 'callback_data' => $this->scoped('male')]),
-                            new InlineKeyboardButton(['text' => 'Female', 'callback_data' => $this->scoped('female')]),
-                            new InlineKeyboardButton(['text' => 'Others', 'callback_data' => $this->scoped('others')])
+                            new InlineKeyboardButton(['text' => '👨‍🦰Male', 'callback_data' => $this->scoped('male')]),
+                            new InlineKeyboardButton(['text' => '👩Female', 'callback_data' => $this->scoped('female')]),
+                            new InlineKeyboardButton(['text' => '👩‍🦲Others', 'callback_data' => $this->scoped('others')])
                         ])]);
                 }
 
                 if (!Str::contains($text, ['male', 'female', 'others'], true)) {
-                    return $this->replyText('Your input is invalid. Please select either one among male, female and others');
+                    return $this->replyText('😢Your input is invalid. Please select either one among male, female and others');
                 }
 
                 $this->setNote('gender', $text);
@@ -72,11 +72,12 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                 $age = Carbon::parse($this->getNote('dob'))->diffInYears();
                 $gender = ucfirst($this->getNote('gender'));
                 $message =
-                    "Congratulations! You have successfully registered in our Health Tracker Program.\n" .
+                    "🎉🎉🎉Congratulations!🔥🔥🔥\n".
+                    "You have successfully registered in our Health Tracker Program.\n" .
                     "Here is a summary of your personal info:\n\n" .
-                    "Name: {$this->getNote('name')}\n" .
-                    "Age: $age years old (dob: {$this->getNote('dob')})\n" .
-                    "Gender: $gender";
+                    "👤Name: {$this->getNote('name')}\n" .
+                    "🗓Age: $age years old (dob: {$this->getNote('dob')})\n" .
+                    "👫Gender: $gender";
 
                 $this->stopConversation();
 
@@ -96,18 +97,18 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
 
                 $keyboard = new InlineKeyboard([]);
                 $keyboard->addRow(new InlineKeyboardButton([
-                    'text' => 'Water Intake',
+                    'text' => '💧Water Intake',
                     'callback_data' => $this->scoped('waterintake', WaterIntakeHandler::class)]));
                 $keyboard->addRow(new InlineKeyboardButton([
-                    'text' => 'Exercise Duration',
+                    'text' => '🏃‍♂️Exercise Duration',
                     'callback_data' => $this->scoped('exerciseduration', ExerciseDurationHandler::class)]));
 
                 $keyboard->addRow(new InlineKeyboardButton([
-                    'text' => 'Sleep Hours',
+                    'text' => '😴Sleep Hours',
                     'callback_data' => $this->scoped('sleephours', SleepHoursHandler::class)]));
 
                 return $this->reply([
-                    'text' => 'Choose any of the available options to record your data',
+                    'text' => '👉👉Choose any of the available options to record your data👈👈',
                     'reply_markup' => $keyboard]);
 
             default:
