@@ -21,7 +21,6 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
         $text = $this->messageText();
 
         $this->initConversation();
-        error_log($this->conversationState . '---' . $text);
 
         switch ($this->conversationState) {
             case 0:

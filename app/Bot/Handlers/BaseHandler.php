@@ -56,7 +56,6 @@ class BaseHandler
 
     protected function chatId(): int
     {
-        error_log('chatId ' . $this->chat()->getId());
         return $this->chat()->getId();
     }
 
