@@ -2,6 +2,8 @@
 
 namespace App\Bot\Handlers;
 
+use App\Models\Record;
+use App\Models\TelegramUser;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
 
@@ -34,7 +36,20 @@ class ExerciseDurationHandler extends BaseHandler implements HandlerInterface
                 $this->setNote('duration', $text);
 
             case 2:
-                //todo record input
+                $user = TelegramUser::query()
+                    ->where('telegram_id', $this->from()->getId())
+                    ->first();
+
+                Record::query()
+                    ->updateOrCreate([
+                        'telegram_user_id' => $user->id,
+                        'date' => now()->format('Y-m-d')
+                    ], [
+                        'telegram_user_id' => $user->id,
+                        'date' => now()->format('Y-m-d'),
+                        'exercise_duration' => $text
+                    ]);
+
                 $message = "Your input has been recorded successfully!";
 
                 $this->stopConversation();
