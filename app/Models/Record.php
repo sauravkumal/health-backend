@@ -19,8 +19,8 @@ class Record extends Model
     ];
 
 
-    public function belongsTo(): BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(TelegramUser::class);
+        return $this->belongsTo(TelegramUser::class, 'telegram_user_id', 'id');
     }
 }

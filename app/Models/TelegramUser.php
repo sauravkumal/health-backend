@@ -32,6 +32,6 @@ class TelegramUser extends Model
 
     public function records(): HasMany
     {
-        return $this->hasMany(Record::class);
+        return $this->hasMany(Record::class, 'telegram_user_id', 'id');
     }
 }
