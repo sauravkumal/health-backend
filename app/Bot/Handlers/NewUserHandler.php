@@ -19,7 +19,9 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
     public function handle(): ServerResponse
     {
         $text = $this->messageText();
+
         $this->initConversation();
+        error_log($this->conversationState . '---' . $text);
 
         switch ($this->conversationState) {
             case 0:
@@ -45,9 +47,9 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                 $this->setNote('dob', $text);
                 $text = '';
 
-            case 3:
+            case 2:
                 if (!$text) {
-                    $this->setState(3);
+                    $this->setState(2);
                     return $this->reply([
                         'text' => 'Choose your gender',
                         'reply_markup' => new InlineKeyboard([
@@ -63,7 +65,7 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
 
                 $this->setNote('gender', $text);
 
-            case 4:
+            case 3:
                 $age = Carbon::parse($this->getNote('dob'))->diffInYears();
                 $gender = ucfirst($this->getNote('gender'));
                 $message =

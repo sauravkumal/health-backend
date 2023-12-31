@@ -23,6 +23,7 @@ class BaseHandler
 
     protected $conversationState;
 
+
     public function __construct(Command $command)
     {
         $this->command = $command;
@@ -41,9 +42,6 @@ class BaseHandler
      */
     protected function reply($data): ServerResponse
     {
-        if ($this->command instanceof CallbackqueryCommand) {
-            return $this->command->getCallbackQuery()->answer($data);
-        }
         $data['chat_id'] = $this->chatId();
         return Request::sendMessage($data);
     }
@@ -58,12 +56,13 @@ class BaseHandler
 
     protected function chatId(): int
     {
+        error_log('chatId ' . $this->chat()->getId());
         return $this->chat()->getId();
     }
 
     protected function from(): User
     {
-        if ($this instanceof CallbackqueryCommand) {
+        if ($this->command instanceof CallbackqueryCommand) {
             return $this->command->getCallbackQuery()->getFrom();
         }
         return $this->command->getMessage()->getFrom();
@@ -71,11 +70,25 @@ class BaseHandler
 
     protected function messageText(): string
     {
-        if ($this instanceof CallbackqueryCommand) {
-            $callbackData = $this->getCallbackQuery()->getData();
-            return trim(explode('_', $callbackData)[1]);
+        if ($this->command instanceof CallbackqueryCommand) {
+            $callbackData = $this->command->getCallbackQuery()->getData();
+            $split = explode('_', $callbackData);
+            return end($split);
         }
         return trim($this->command->getMessage()->getText(true));
+    }
+
+    private function getConversationIdentifier(): string
+    {
+
+        if ($this->command instanceof CallbackqueryCommand) {
+            $callbackData = $this->command->getCallbackQuery()->getData();
+            $split = explode('_', $callbackData);
+            if (count($split) > 2) {
+                return $split[1];
+            }
+        }
+        return $this->command->getName();
     }
 
     /**
@@ -83,7 +96,7 @@ class BaseHandler
      */
     protected function initConversation(): void
     {
-        $this->conversation = new Conversation($this->from()->getId(), $this->chatId(), $this->command->getName());
+        $this->conversation = new Conversation($this->from()->getId(), $this->chatId(), $this->getConversationIdentifier());
 
         $this->conversationNotes = &$this->conversation->notes;
         !is_array($this->conversationNotes) && $this->conversationNotes = [];
