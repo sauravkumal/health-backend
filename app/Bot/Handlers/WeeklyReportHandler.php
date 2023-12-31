@@ -13,7 +13,10 @@ class WeeklyReportHandler extends BaseHandler implements HandlerInterface
      */
     public function handle(): ServerResponse
     {
-        $message = "";
+        $message = "<b>Here is your weekly health report</b>\n\n" .
+            "Average water intake: <strong>2 litres</strong>\n" .
+            "Average sleep hour: <strong>5 hours</strong>\n" .
+            "Average exercise duration: <strong>6 hours</strong>\n";
 
         return $this->replyText($message);
     }

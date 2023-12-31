@@ -43,6 +43,7 @@ class BaseHandler
     protected function reply($data): ServerResponse
     {
         $data['chat_id'] = $this->chatId();
+        $data['parse_mode'] = 'HTML';
         return Request::sendMessage($data);
     }
 
