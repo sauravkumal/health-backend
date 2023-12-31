@@ -4,7 +4,6 @@ namespace App\Bot\Commands\User;
 
 use App\Bot\Handlers\CallsHandlerTrait;
 use App\Bot\Handlers\ChecksExistingUserTrait;
-use App\Bot\Handlers\ExistingUserHandler;
 use App\Bot\Handlers\NewUserHandler;
 use App\Bot\Handlers\WaterIntakeHandler;
 use Longman\TelegramBot\Commands\UserCommand;
@@ -21,7 +20,7 @@ class WaterintakeCommand extends UserCommand
     /**
      * @var string
      */
-    protected $name = 'water_intake';
+    protected $name = 'waterintake';
 
     /**
      * @var string
@@ -31,7 +30,7 @@ class WaterintakeCommand extends UserCommand
     /**
      * @var string
      */
-    protected $usage = '/water_intake';
+    protected $usage = '/waterintake';
 
     /**
      * @var string
@@ -56,6 +55,7 @@ class WaterintakeCommand extends UserCommand
      */
     public function execute(): ServerResponse
     {
+        error_log('water intake execute');
         if ($this->getExistingUser()) {
             return $this->handler(WaterIntakeHandler::class);
         }

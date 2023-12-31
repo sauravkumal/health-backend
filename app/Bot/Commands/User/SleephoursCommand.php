@@ -21,7 +21,7 @@ class SleephoursCommand extends UserCommand
     /**
      * @var string
      */
-    protected $name = 'sleep_hours';
+    protected $name = 'sleephours';
 
     /**
      * @var string
@@ -31,7 +31,7 @@ class SleephoursCommand extends UserCommand
     /**
      * @var string
      */
-    protected $usage = '/sleep_hours';
+    protected $usage = '/sleephours';
 
     /**
      * @var string

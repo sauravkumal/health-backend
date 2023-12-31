@@ -20,7 +20,7 @@ class ExercisedurationCommand extends UserCommand
     /**
      * @var string
      */
-    protected $name = 'exercise_duration';
+    protected $name = 'exerciseduration';
 
     /**
      * @var string
@@ -30,7 +30,7 @@ class ExercisedurationCommand extends UserCommand
     /**
      * @var string
      */
-    protected $usage = '/exercise_duration';
+    protected $usage = '/exerciseduration';
 
     /**
      * @var string
