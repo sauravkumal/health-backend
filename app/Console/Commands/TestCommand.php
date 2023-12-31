@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Record;
+use App\Models\TelegramUser;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command
@@ -27,6 +29,17 @@ class TestCommand extends Command
      */
     public function handle()
     {
+        /* @var \App\Models\TelegramUser $user */
+        $user = TelegramUser::first();
+
+        $user->records()
+            ->saveMany(Record::factory(5)
+                ->sequence(
+                    ['date' => '2024-01-01'],
+                    ['date' => '2024-01-02'],
+                    ['date' => '2024-01-03'],
+                    ['date' => '2024-01-04'],
+                    ['date' => '2024-01-05'])->make());
         return Command::SUCCESS;
     }
 }
