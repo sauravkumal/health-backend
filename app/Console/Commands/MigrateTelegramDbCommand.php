@@ -30,7 +30,7 @@ class MigrateTelegramDbCommand extends Command
     {
         $path = base_path('vendor/longman/telegram-bot/structure.sql');
         $sql = file_get_contents($path);
-        $resp = DB::connection('telegram')->unprepared($sql);
+        $resp = DB::unprepared($sql);
         if ($resp) {
             $this->info('Database migrated successfully');
         } else {

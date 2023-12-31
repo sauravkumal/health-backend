@@ -36,7 +36,7 @@ class TelegramServiceProvider extends ServiceProvider
         /* @var Telegram $telegram */
         $telegram = app()->get(Telegram::class);
 
-        $telegram->enableExternalMySql(DB::connection('telegram')->getPdo());
+        $telegram->enableExternalMySql(DB::getPdo());
 
         if (config('telegram.admins')) {
             $telegram->enableAdmins(config('telegram.admins'));
