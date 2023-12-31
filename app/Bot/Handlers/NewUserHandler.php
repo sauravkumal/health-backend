@@ -2,6 +2,7 @@
 
 namespace App\Bot\Handlers;
 
+use App\Models\TelegramUser;
 use Carbon\Exceptions\InvalidFormatException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
@@ -78,6 +79,19 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                     "Gender: $gender";
 
                 $this->stopConversation();
+
+                $from = $this->from();
+
+                TelegramUser::query()
+                    ->create([
+                        'telegram_id' => $from->getId(),
+                        'first_name' => $from->getFirstName(),
+                        'last_name' => $from->getLastName(),
+                        'display_name' => $this->getNote('name'),
+                        'username' => $from->getUsername(),
+                        'dob' => Carbon::parse($this->getNote('dob')),
+                        'gender' => $this->getNote('gender'),
+                    ]);
 
                 return $this->replyText($message);
 

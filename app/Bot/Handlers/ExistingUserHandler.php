@@ -3,13 +3,16 @@
 namespace App\Bot\Handlers;
 
 use Longman\TelegramBot\Entities\ServerResponse;
-use Longman\TelegramBot\Request;
+use Longman\TelegramBot\Exception\TelegramException;
 
 class ExistingUserHandler extends BaseHandler implements HandlerInterface
 {
 
+    /**
+     * @throws TelegramException
+     */
     public function handle(): ServerResponse
     {
-        return Request::emptyResponse();
+        return $this->replyText('You are existing user');
     }
 }
