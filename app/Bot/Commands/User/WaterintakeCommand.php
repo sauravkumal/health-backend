@@ -55,7 +55,6 @@ class WaterintakeCommand extends UserCommand
      */
     public function execute(): ServerResponse
     {
-        error_log('water intake execute');
         if ($this->getExistingUser()) {
             return $this->handler(WaterIntakeHandler::class);
         }

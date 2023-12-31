@@ -24,7 +24,7 @@ class WaterIntakeHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    $this->replyText("🌟Enter today's water intake in litres🚀");
+                    return $this->replyText("🌟Enter today's water intake in litres🚀");
                 }
 
                 if (!is_numeric($text)) {

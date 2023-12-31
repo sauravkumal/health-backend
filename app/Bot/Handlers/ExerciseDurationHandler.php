@@ -24,7 +24,7 @@ class ExerciseDurationHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    $this->replyText("🌟Enter today's exercise duration in hours🚀");
+                    return $this->replyText("🌟Enter today's exercise duration in hours🚀");
                 }
 
                 if (!is_numeric($text)) {
