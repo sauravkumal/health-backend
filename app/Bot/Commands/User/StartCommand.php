@@ -3,9 +3,9 @@
 namespace App\Bot\Commands\User;
 
 use App\Bot\Handlers\CallsHandlerTrait;
+use App\Bot\Handlers\ChecksExistingUserTrait;
 use App\Bot\Handlers\ExistingUserHandler;
 use App\Bot\Handlers\NewUserHandler;
-use App\Models\TelegramUser;
 use Longman\TelegramBot\Commands\UserCommand;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
@@ -15,7 +15,7 @@ use Longman\TelegramBot\Exception\TelegramException;
  */
 class StartCommand extends UserCommand
 {
-    use CallsHandlerTrait;
+    use CallsHandlerTrait, ChecksExistingUserTrait;
 
     /**
      * @var string
@@ -55,14 +55,7 @@ class StartCommand extends UserCommand
      */
     public function execute(): ServerResponse
     {
-        $message = $this->getMessage();
-        $from = $message->getFrom();
-
-        $user = TelegramUser::query()
-            ->where('telegram_id', $from->getId())
-            ->first();
-
-        if ($user) {
+        if ($this->getExistingUser()) {
             return $this->handler(ExistingUserHandler::class);
         }
         return $this->handler(NewUserHandler::class);

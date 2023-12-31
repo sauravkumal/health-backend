@@ -129,13 +129,17 @@ class BaseHandler
 
     protected function getNote($key)
     {
-        return $this->conversationNotes[$key];
+        return $this->conversationNotes[$key] ?? false;
     }
 
-    protected function scoped($value, $class = null): string
+    protected function scoped($value, $handler = null): string
     {
-        return Str::of($class ?? get_class($this))
-            ->remove(["App\\Bot\\Handlers\\", 'Handler'])
-            ->append('_', $this->command->getName(), '_', $value)->value();
+        $string = Str::of($handler ?? get_class($this))
+            ->remove(["App\\Bot\\Handlers\\", 'Handler']);
+
+        if ($handler) {
+            return $string->append('_', $value)->value();
+        }
+        return $string->append('_', $this->command->getName(), '_', $value)->value();
     }
 }

@@ -24,17 +24,20 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
 
         switch ($this->conversationState) {
             case 0:
+                $this->setState(1);
+                $text = '';
+            case 1:
                 if (!$text) {
-                    $this->setState(0);
+                    $this->setState(1);
                     $this->replyText("🌟Welcome to our Health Tracker Bot! Log your daily water ,sleep hours 😴, and exercise duration. Get weekly updates to keep you on track! Please tell us a bit about yourself.🚀");
                     return $this->replyText("Enter your name");
                 }
                 $this->setNote('name', $text);
                 $text = '';
 
-            case 1:
+            case 2:
                 if (!$text) {
-                    $this->setState(1);
+                    $this->setState(2);
                     return $this->replyText('Enter your date of birth (yyyy-mm-dd)');
                 }
                 try {
@@ -46,9 +49,9 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                 $this->setNote('dob', $text);
                 $text = '';
 
-            case 2:
+            case 3:
                 if (!$text) {
-                    $this->setState(2);
+                    $this->setState(3);
                     return $this->reply([
                         'text' => 'Choose your gender',
                         'reply_markup' => new InlineKeyboard([
@@ -64,12 +67,12 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
 
                 $this->setNote('gender', $text);
 
-            case 3:
+            case 4:
                 $age = Carbon::parse($this->getNote('dob'))->diffInYears();
                 $gender = ucfirst($this->getNote('gender'));
                 $message =
                     "Congratulations! You have successfully registered in our Health Tracker Program.\n" .
-                    "Here are the summary of your personal info:\n\n" .
+                    "Here is a summary of your personal info:\n\n" .
                     "Name: {$this->getNote('name')}\n" .
                     "Age: $age years old (dob: {$this->getNote('dob')})\n" .
                     "Gender: $gender";
