@@ -52,6 +52,7 @@ class TelegramServiceProvider extends ServiceProvider
     private function registerCommands(Telegram $telegram): void
     {
         $telegram->addCommandsPath(app_path('Bot/Commands/User'));
+        $telegram->addCommandsPath(app_path('Bot/Commands/System'));
     }
 
     private function configureLog(): void

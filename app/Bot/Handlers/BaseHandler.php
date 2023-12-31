@@ -3,6 +3,7 @@
 namespace App\Bot\Handlers;
 
 use App\Bot\Commands\System\CallbackqueryCommand;
+use Illuminate\Support\Str;
 use Longman\TelegramBot\Commands\Command;
 use Longman\TelegramBot\Conversation;
 use Longman\TelegramBot\Entities\Chat;
@@ -40,6 +41,9 @@ class BaseHandler
      */
     protected function reply($data): ServerResponse
     {
+        if ($this->command instanceof CallbackqueryCommand) {
+            return $this->command->getCallbackQuery()->answer($data);
+        }
         $data['chat_id'] = $this->chatId();
         return Request::sendMessage($data);
     }
@@ -68,8 +72,8 @@ class BaseHandler
     protected function messageText(): string
     {
         if ($this instanceof CallbackqueryCommand) {
-            //todo return inline query data
-            return trim($this->command->getMessage()->getText(true));
+            $callbackData = $this->getCallbackQuery()->getData();
+            return trim(explode('_', $callbackData)[1]);
         }
         return trim($this->command->getMessage()->getText(true));
     }
@@ -114,5 +118,12 @@ class BaseHandler
     protected function getNote($key)
     {
         return $this->conversationNotes[$key];
+    }
+
+    protected function scoped($value, $class = null): string
+    {
+        return Str::of($class ?? get_class($this))
+            ->remove(["App\\Bot\\Handlers\\", 'Handler'])
+            ->append('_', $value)->value();
     }
 }

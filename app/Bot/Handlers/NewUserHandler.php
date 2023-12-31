@@ -51,9 +51,9 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                     return $this->reply([
                         'text' => 'Choose your gender',
                         'reply_markup' => new InlineKeyboard([
-                            new InlineKeyboardButton(['text' => 'Male', 'callback_data' => 'male']),
-                            new InlineKeyboardButton(['text' => 'Female', 'callback_data' => 'female']),
-                            new InlineKeyboardButton(['text' => 'Others', 'callback_data' => 'others'])
+                            new InlineKeyboardButton(['text' => 'Male', 'callback_data' => $this->scoped('male')]),
+                            new InlineKeyboardButton(['text' => 'Female', 'callback_data' => $this->scoped('female')]),
+                            new InlineKeyboardButton(['text' => 'Others', 'callback_data' => $this->scoped('others')])
                         ])]);
                 }
 
