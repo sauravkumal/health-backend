@@ -65,12 +65,12 @@ return [
 
         'telegram' => [
             'driver' => 'mysql',
-            'url' => env('TELEGRAM_DATABASE_URL'),
-            'host' => env('TELEGRAM_DB_HOST', '127.0.0.1'),
-            'port' => env('TELEGRAM_DB_PORT', '3306'),
+            'url' => env('DATABASE_URL'),
+            'host' => env('DB_HOST', '127.0.0.1'),
+            'port' => env('DB_PORT', '3306'),
             'database' => env('TELEGRAM_DB_DATABASE', 'forge'),
-            'username' => env('TELEGRAM_DB_USERNAME', 'forge'),
-            'password' => env('TELEGRAM_DB_PASSWORD', ''),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',

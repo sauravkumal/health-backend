@@ -32,7 +32,7 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    return $this->replyText('🗓🗓🗓🗓🗓📅📅📅📅Enter your date of birth (yyyy-mm-dd):');
+                    return $this->replyText('Enter your date of birth (yyyy-mm-dd):');
                 }
                 try {
                     Carbon::parse($text);
@@ -57,15 +57,17 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
 
             case 4:
                 $age = Carbon::parse($this->getNote('dob'))->diffInYears();
+                $gender = ucfirst($this->getNote('gender'));
                 $message =
                     "Congratulations! You have successfully registered in our Health Tracker Program.\n" .
                     "Here are the summary of your personal info:\n\n" .
                     "Name: {$this->getNote('name')}\n" .
-                    "Age: {$age} years old, DOB: {$this->getNote('dob')}\n" .
-                    "Gender: {$this->getNote('gender')}";
+                    "Age: $age years old (dob: {$this->getNote('dob')})\n" .
+                    "Gender: $gender";
+
+                $this->stopConversation();
 
                 return $this->replyText($message);
-
 
             default:
                 throw new \Exception('Unexpected conversation state');

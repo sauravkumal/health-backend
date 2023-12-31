@@ -72,13 +72,20 @@ class BaseHandler
 
         $this->conversationNotes = &$this->conversation->notes;
         !is_array($this->conversationNotes) && $this->conversationNotes = [];
-
         $this->conversationState = $this->conversationNotes['state'] ?? 0;
     }
 
     protected function updateConversation(): bool
     {
         return $this->conversation->update();
+    }
+
+    /**
+     * @throws TelegramException
+     */
+    protected function stopConversation(): void
+    {
+        $this->conversation->stop();
     }
 
     protected function setState($state): void

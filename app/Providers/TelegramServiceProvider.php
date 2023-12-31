@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
+use Longman\TelegramBot\Exception\TelegramException;
 use Longman\TelegramBot\Request;
 use Longman\TelegramBot\Telegram;
 use Longman\TelegramBot\TelegramLog;
@@ -27,13 +29,14 @@ class TelegramServiceProvider extends ServiceProvider
      * Bootstrap services.
      *
      * @return void
+     * @throws TelegramException
      */
     public function boot()
     {
         /* @var Telegram $telegram */
         $telegram = app()->get(Telegram::class);
 
-        $telegram->enableMySql(config('telegram.db'));
+        $telegram->enableExternalMySql(DB::connection('telegram')->getPdo());
 
         if (config('telegram.admins')) {
             $telegram->enableAdmins(config('telegram.admins'));
