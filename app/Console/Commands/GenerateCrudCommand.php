@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 use Symfony\Component\Process\Process;
 
-class GenerateCrud extends Command
+class GenerateCrudCommand extends Command
 {
     /**
      * The name and signature of the console command.

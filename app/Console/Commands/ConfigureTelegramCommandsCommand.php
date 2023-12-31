@@ -9,7 +9,7 @@ use Longman\TelegramBot\Entities\BotCommand;
 use Longman\TelegramBot\Entities\BotCommandScope\BotCommandScopeDefault;
 use Longman\TelegramBot\Request;
 
-class ConfigureTelegramCommands extends Command
+class ConfigureTelegramCommandsCommand extends Command
 {
     /**
      * The name and signature of the console command.

@@ -7,7 +7,7 @@ use Longman\TelegramBot\Entities\Update;
 use Longman\TelegramBot\Entities\WebhookInfo;
 use Longman\TelegramBot\Request;
 
-class ConfigureTelegramWebhook extends Command
+class ConfigureTelegramWebhookCommand extends Command
 {
     /**
      * The name and signature of the console command.
