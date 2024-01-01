@@ -72,14 +72,12 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                 $age = Carbon::parse($this->getNote('dob'))->diffInYears();
                 $gender = ucfirst($this->getNote('gender'));
                 $message =
-                    "🎉🎉🎉Congratulations!🔥🔥🔥\n".
+                    "🎉🎉🎉Congratulations!🔥🔥🔥 \n" .
                     "You have successfully registered in our Health Tracker Program.\n" .
                     "Here is a summary of your personal info:\n\n" .
                     "👤Name: {$this->getNote('name')}\n" .
                     "🗓Age: $age years old (dob: {$this->getNote('dob')})\n" .
                     "👫Gender: $gender";
-
-                $this->stopConversation();
 
                 $from = $this->from();
 
@@ -93,6 +91,9 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                         'dob' => Carbon::parse($this->getNote('dob')),
                         'gender' => $this->getNote('gender'),
                     ]);
+
+                $this->stopConversation();
+
                 $this->replyText($message);
 
                 $keyboard = new InlineKeyboard([]);
