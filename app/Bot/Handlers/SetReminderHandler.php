@@ -3,6 +3,8 @@
 namespace App\Bot\Handlers;
 
 use App\Models\TelegramUser;
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Longman\TelegramBot\Entities\ServerResponse;
 use Longman\TelegramBot\Exception\TelegramException;
 
@@ -28,18 +30,22 @@ class SetReminderHandler extends BaseHandler implements HandlerInterface
                     return $this->replyText("💧When would you like us to remind you? (h:i am/pm)");
                 }
 
-                if (!is_numeric($text)) {
+                try {
+                    Carbon::parse($text);
+                } catch (InvalidFormatException $exception) {
                     return $this->replyText("😢Your input is invalid. Please try again");
+
                 }
+
 
                 $this->setNote('reminder', $text);
 
             case 2:
 
-                $user = TelegramUser::query()
+                TelegramUser::query()
                     ->where('telegram_id', $this->from()->getId())
-                    ->updateOrCreate([
-                        'reminder' => '',
+                    ->update([
+                        'reminder' => Carbon::parse($this->getNote('reminder'))->format('H:i:s'),
                     ]);
 
                 $message = "Your reminder has been set successfully😀";
