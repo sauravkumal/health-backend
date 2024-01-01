@@ -5,9 +5,7 @@ namespace Tests;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Longman\TelegramBot\Entities\Chat;
 use Longman\TelegramBot\Entities\Message;
 use Longman\TelegramBot\Entities\User;
@@ -28,9 +26,6 @@ class BotHandlerTestCase extends TestCase
 
     protected function createHandlerTestBench(): void
     {
-        Artisan::call('command:migrate-telegram-db');
-
-
         $this->client = Mockery::mock(Client::class);
 
 
@@ -89,10 +84,5 @@ class BotHandlerTestCase extends TestCase
         $this->sendMessageResponse = new Response(200,
             ['Content-Type' => 'application/json'],
             json_encode($respJson));
-
-        $this->client->shouldReceive('post')->with(
-            Mockery::on(function ($arg) {
-                return Str::contains($arg, 'sendMessage');
-            }), Mockery::on(fn($args) => true))->andReturn($this->sendMessageResponse);
     }
 }
