@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class TelegramUserResource extends JsonResource
@@ -25,8 +26,8 @@ class TelegramUserResource extends JsonResource
                 'dob',
                 'gender',
                 'created_at',
-                'reminder'
             ),
+            'reminder' => Carbon::parse($this->reminder)->format('h:i a'),
             'age' => $this->age];
     }
 }
