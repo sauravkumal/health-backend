@@ -113,7 +113,7 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
                     'callback_data' => $this->scoped('setreminder', SetReminderHandler::class)]));
 
                 return $this->reply([
-                    'text' => '👉👉Choose any of the available options to record your data👈👈',
+                    'text' => '👉👉Choose any of the available options👈👈',
                     'reply_markup' => $keyboard]);
 
             default:

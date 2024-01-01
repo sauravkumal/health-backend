@@ -36,7 +36,7 @@ class ExistingUserHandler extends BaseHandler implements HandlerInterface
             'callback_data' => $this->scoped('5', WeeklyReportHandler::class)]));
 
         return $this->reply([
-            'text' => '👉👉Choose any of the available options to record your data👈👈',
+            'text' => '👉👉Choose any of the available options👈👈',
             'reply_markup' => $keyboard]);
     }
 }
