@@ -63,6 +63,9 @@ For serverless deployment on AWS lambda, Laravel Vapor or Bref can be used.
 
 Configure `cronjob` entry for laravel inorder to receive reminders.
 
+## Libraries
 
+- `arcanedev/log-viewer` for displaying logs in web view.
+- `longman/telegram-bot` for handling telegram api.
 
 
