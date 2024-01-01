@@ -22,7 +22,7 @@ Update the following environment variables in your `.env` file:
 
 ## Local development
 
-This application utilizes telegram webhook to receive updates. So we need to se tup telegram to send its updates to our
+This application utilizes telegram webhook to receive updates. So we need to set up telegram to send its updates to our
 local development server.
 
 We are going to use `ngrok` to set up webhook to point to our local server.
