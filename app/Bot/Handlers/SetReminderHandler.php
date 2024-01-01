@@ -27,7 +27,7 @@ class SetReminderHandler extends BaseHandler implements HandlerInterface
             case 1:
                 if (!$text) {
                     $this->setState(1);
-                    return $this->replyText("💧When would you like us to remind you? (h:i am/pm)");
+                    return $this->replyText("⏰When would you like us to remind you? (h:i am/pm)");
                 }
 
                 try {

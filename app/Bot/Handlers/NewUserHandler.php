@@ -98,15 +98,19 @@ class NewUserHandler extends BaseHandler implements HandlerInterface
 
                 $keyboard = new InlineKeyboard([]);
                 $keyboard->addRow(new InlineKeyboardButton([
-                    'text' => '💧Water Intake',
+                    'text' => '💧Add Water Intake',
                     'callback_data' => $this->scoped('waterintake', WaterIntakeHandler::class)]));
                 $keyboard->addRow(new InlineKeyboardButton([
-                    'text' => '🏃‍♂️Exercise Duration',
+                    'text' => '🏃‍♂️Add Exercise Duration',
                     'callback_data' => $this->scoped('exerciseduration', ExerciseDurationHandler::class)]));
 
                 $keyboard->addRow(new InlineKeyboardButton([
-                    'text' => '😴Sleep Hours',
+                    'text' => '😴Add Sleep Hours',
                     'callback_data' => $this->scoped('sleephours', SleepHoursHandler::class)]));
+
+                $keyboard->addRow(new InlineKeyboardButton([
+                    'text' => '⏰Add Reminder',
+                    'callback_data' => $this->scoped('setreminder', SetReminderHandler::class)]));
 
                 return $this->reply([
                     'text' => '👉👉Choose any of the available options to record your data👈👈',
