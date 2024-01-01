@@ -24,6 +24,7 @@ class TelegramUserFactory extends Factory
             'username' => fake()->userName,
             'dob' => fake()->date,
             'gender' => fake()->randomElement(['male', 'female', 'others']),
+            'reminder' => fake()->dateTime
         ];
     }
 }

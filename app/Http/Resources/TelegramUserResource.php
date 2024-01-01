@@ -24,7 +24,8 @@ class TelegramUserResource extends JsonResource
                 'username',
                 'dob',
                 'gender',
-                'created_at'
+                'created_at',
+                'reminder'
             ),
             'age' => $this->age];
     }

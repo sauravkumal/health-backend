@@ -20,6 +20,7 @@ class TelegramUser extends Model
         'username',
         'dob',
         'gender',
+        'reminder'
     ];
 
     protected function age(): Attribute
