@@ -40,6 +40,18 @@ Now our local server is ready for receiving webhook updates directly from telegr
 In order to view, register and remove commands of telegram bot,
 use the command `php artisan command:config-telegram-commands` and choose respective options.
 
+## Available bot commands
+
+- `/start` - Start bot
+- `/waterintake` - Add daily water intake
+- `/weeklyreport` - Show weekly health report
+- `/sleephours` - Add daily sleep hours
+- `/setreminder` - Set reminder for logging data
+- `/exerciseduration` - Add daily exercise duration
+
+Each of the above commands launch an interactive conversation session that guides users about what inputs are needed and
+in what format.
+
 ## Logging
 
 All the telegram generated logs are found on the route `/log-viewer`. This is publicly accessible by default. Make sure
