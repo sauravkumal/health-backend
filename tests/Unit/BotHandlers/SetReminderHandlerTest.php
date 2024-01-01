@@ -16,7 +16,7 @@ class SetReminderHandlerTest extends BotHandlerTestCase
     /**
      * @throws TelegramException
      */
-    public function test_if_exercise_duration_handler_is_working()
+    public function test_if_set_reminder_handler_is_working()
     {
         $this->createHandlerTestBench();
         $user = TelegramUser::factory()->create(['telegram_id' => $this->from->getId()]);
