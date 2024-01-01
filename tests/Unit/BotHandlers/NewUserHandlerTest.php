@@ -4,7 +4,6 @@ namespace Tests\Unit\BotHandlers;
 
 use App\Bot\Commands\User\StartCommand;
 use App\Bot\Handlers\NewUserHandler;
-use Illuminate\Support\Str;
 use Longman\TelegramBot\Exception\TelegramException;
 use Mockery;
 use Tests\BotHandlerTestCase;
@@ -31,7 +30,7 @@ class NewUserHandlerTest extends BotHandlerTestCase
             $handler->handle();
         }
 
-        $this->assertTrue(true);
+        $this->assertDatabaseCount('telegram_users', 1);
     }
 
 }
