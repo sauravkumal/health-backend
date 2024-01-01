@@ -1,66 +1,68 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Telegram Health Tracker Bot
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+HealthTrackerBot, a Telegram bot, streamlines health monitoring with features like user registration, daily health logs,
+and custom reminders. Users easily input data and receive weekly summaries, promoting a hassle-free approach to
+maintaining a healthy lifestyle. The bot's interactive design, featuring buttons and inline queries, ensures a
+user-friendly experience for efficient and personalized health tracking.
 
-## About Laravel
+## Installation
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This document assumes that you are already familiar with the installation of laravel application.
+If you are new to laravel feel free to follow
+this [tutorial](https://devmarketer.io/learn/setup-laravel-project-cloned-github-com/)
+or any other installation videos/tutorials from the internet.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+#### Telegram bot setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Update the following environment variables in your `.env` file:
 
-## Learning Laravel
+- `TELEGRAM_BOT_TOKEN`: Your telegram bot token
+- `TELEGRAM_BOT_USERNAME`: Your telegram bot username
+- `TELEGRAM_ADMINS`: (optional) Your telegram admin ids separated by comma.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Local development
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+This application utilizes telegram webhook to receive updates. So we need to se tup telegram to send its updates to our
+local development server.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+We are going to use `ngrok` to set up webhook to point to our local server.
 
-## Laravel Sponsors
+- Run `php artisan serve`: Runs local laravel development server on port 8000 by default.
+- Run `ngrok http 8000`: Creates https url that points to our local server.
+- Copy https url from `ngrok`.
+- Run `php artisan command:config-telegram-webhook`: Command for viewing, adding and removing telegram webhook.
+- Select `Register webhook` and paste the https url from `ngrok`.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Now our local server is ready for receiving webhook updates directly from telegram.
 
-### Premium Partners
+## Registering telegram commands
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+In order to view, register and remove commands of telegram bot,
+use the command `php artisan command:config-telegram-commands` and choose respective options.
 
-## Contributing
+## Logging
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+All the telegram generated logs are found on the route `/log-viewer`. This is publicly accessible by default. Make sure
+to limit its access when running in production. Feel free to set up log channels and log levels
+confuguration on the `.env` file.
 
-## Code of Conduct
+## Testing
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Create a separate database called `telegram` which is accessible with the same credentials as the main database.
 
-## Security Vulnerabilities
+Then run `php artisan test` to run the available tests, as well as your own tests. Detailed configuration can be updated
+on file `phpunit.xml`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Deployment
 
-## License
+This project can be hosted on any standard apache, nginx, php-fpm enabled servers.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Platforms dedicated to hosting laravel applications include Laravel Forge, Cpanel and others.
+
+For serverless deployment on AWS lambda, Laravel Vapor or Bref can be used.
+
+Configure `cronjob` entry for laravel inorder to receive reminders.
+
+
+
+
